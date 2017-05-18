@@ -5,17 +5,19 @@
 My architect experience and passion for Android into this project to simplify the creation of a new App for Android.
 Instead of configuring everything from scratch we can just import or take inspiration from the features of this project.
 
-> Computer Science is experimentation, automation and engineering.
+> Computer Science is experimentation, automation and engineering (...).
 
 So those Apps are also a playground to experiment new frameworks and new features.
 
 # Features
 **Note:** _All features are under deep analysis with continuous development; Features will be added step by step._
 - Ready to use gradle files with [advanced build versioning](https://github.com/moallemi/gradle-advanced-build-version).
+- Gradle scripts for Bintray.
 - Build variants.
 - Architectures: MVP / [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/) with [EventBus](http://greenrobot.org/eventbus/) / [RxAndroid](https://github.com/ReactiveX/RxAndroid).
 - Common and Utils classes.
 - [Adapter](https://github.com/davideas/FlexibleAdapter) for RecyclerView.
+- [Material Design](https://material.io/)
 - Styles and Theme with DayNight.
 - [Preferences](https://medium.com/@JakobUlbrich/building-a-settings-screen-for-android-part-1-5959aa49337c).
 - [Various UI Widgets from community](https://github.com/davideas?tab=stars) / [Devlight](https://github.com/Devlight).
@@ -24,12 +26,14 @@ So those Apps are also a playground to experiment new frameworks and new feature
 - Constraints Layouts / [Litho](http://fblitho.com/).
 - [About](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=about) & ReleaseNote libraries.
 - [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
-- [Glide 3](https://github.com/bumptech/glide) for image loading and caching.
+- [Glide](https://github.com/bumptech/glide) for image loading and caching.
 - [Timber](https://github.com/JakeWharton/timber) for logging.
-- Persistence: Cursor / [Requery](https://github.com/requery/requery/) / [Realm](https://realm.io/docs/java/latest/).
+- Persistence: Cursor / [Requery](https://github.com/requery/requery/) / [Realm](https://realm.io/docs/java/latest/) / [Firebase](https://firebase.google.com/products/).
 - View Injector: [ButterKnife](https://github.com/JakeWharton/butterknife).
-- Dependency injector: [Dagger 2](http://google.github.io/dagger/) / [Toothpick](https://github.com/stephanenicolas/toothpick).
-- Authentication (Firebase Auth / JWT / OAuth 2.0 / Social Networks).
+- Dependency injector: [Dagger](http://google.github.io/dagger/) / [Toothpick](https://github.com/stephanenicolas/toothpick).
+- Authentication (Firebase Auth / JWT / OAuth2 / Social Networks).
+- Custom Annotation and Annotation Processor.
+- Encryption.
 - Google Maps.
 - [Firebase](https://github.com/firebase/quickstart-android) Messaging with Notification manager!
 - App analyzer with crash notification: Analytics / Fabric.
