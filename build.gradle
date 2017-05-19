@@ -12,22 +12,59 @@ ext {
 	appVersion = "1.0"
 	appDate = " built on " + getDate()
 	buildCode = 1
-	buildTools = "25.0.2"
-	supportLib = "25.3.1"
+	buildTools = "25.0.3"
+	supportVer = "25.3.1"
+	constraintVer = "1.1.0-beta1"
 
 	// Support Libraries dependencies
 	supportDependencies = [
-			design         : "com.android.support:design:${supportLib}",
-			recyclerview   : "com.android.support:recyclerview-v7:${supportLib}",
-			cardview       : "com.android.support:cardview-v7:${supportLib}",
-			appcompat      : "com.android.support:appcompat-v7:${supportLib}",
-			customtabs     : "com.android.support:customtabs:${supportLib}",
-			support_v13    : "com.android.support:support-v13:${supportLib}",
-			annotations    : "com.android.support:support-annotations:${supportLib}",
-			vector_drawable: "com.android.support:support-vector-drawable:${supportLib}",
-			preference_v7  : "com.android.support:preference-v7:${supportLib}",
-			preference_v14 : "com.android.support:preference-v14:${supportLib}"
+			design          : "com.android.support:design:${supportVer}",
+			recyclerview    : "com.android.support:recyclerview-v7:${supportVer}",
+			cardview        : "com.android.support:cardview-v7:${supportVer}",
+			appcompat       : "com.android.support:appcompat-v7:${supportVer}",
+			customtabs      : "com.android.support:customtabs:${supportVer}",
+			support_v13     : "com.android.support:support-v13:${supportVer}",
+			annotations     : "com.android.support:support-annotations:${supportVer}",
+			vectorDrawable : "com.android.support:support-vector-drawable:${supportVer}",
+			preference_v7   : "com.android.support:preference-v7:${supportVer}",
+			preference_v14  : "com.android.support:preference-v14:${supportVer}",
+			constraintLayout: "com.android.support.constraint:constraint-layout:${constraintVer}",
 	]
+
+	// Libraries
+	firebaseLib = "10.2.6"
+	googleMapsLib = "10.2.6"
+	butterKnifeLib = "8.5.1"
+	gsonLib = "2.8.0"
+	retrofitLib = "2.3.0"
+	timberLib = "4.5.1"
+	okHttpLib = "3.8.0"
+	glideLib = "4.0.0-RC0"
+	flexibleAdapterLib = "5.0.0-SNAPSHOT"
+
+	libraries = [
+			firebaseConfig     : "com.google.firebase:firebase-config:${firebaseLib}",
+			firebaseMessaging  : "com.google.firebase:firebase-messaging:${firebaseLib}",
+			googleMaps         : "com.google.android.gms:play-services-maps:${googleMapsLib}",
+			butterKnife        : "com.jakewharton:butterknife:${butterKnifeLib}",
+			butterKnifeCompiler: "com.jakewharton:butterknife-compiler:${butterKnifeLib}",
+			gson               : "com.google.code.gson:gson:${gsonLib}",
+			gsonConverter      : "com.squareup.retrofit2:converter-gson:${retrofitLib}",
+			retrofit           : "com.squareup.retrofit2:retrofit:${retrofitLib}",
+			timber             : "com.jakewharton.timber:timber:${timberLib}",
+			okhttp_logging     : "com.squareup.okhttp3:logging-interceptor:${okHttpLib}",
+			glide              : "com.github.bumptech.glide:glide:${glideLib}",
+			glideCompiler      : "com.github.bumptech.glide:compiler:${glideLib}",
+			flexibleAdapter    : "eu.davidea:flexible-adapter:${flexibleAdapterLib}",
+	]
+
+	// Widgets
+	flipViewLib = "1.1.3"
+
+	widgets = [
+			flipView           : "eu.davidea:flipview:${flipViewLib}"
+	]
+
 }
 
 buildscript {
@@ -36,7 +73,7 @@ buildscript {
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:2.3.2'
-
+		classpath 'com.google.gms:google-services:3.0.0'
 		// NOTE: Do not place your application dependencies here; they belong
 		// in the individual module build.gradle files
 	}

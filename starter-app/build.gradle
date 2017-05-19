@@ -58,13 +58,13 @@ dependencies {
 	testCompile 'org.mockito:mockito-core:2.7.22'
 
 	// Support Libraries
-	compile 'com.android.support.constraint:constraint-layout:1.1.0-beta1'
+	compile supportDependencies.constraintLayout
 	compile supportDependencies.appcompat
 	compile supportDependencies.cardview
 	compile supportDependencies.support_v13
 	compile supportDependencies.preference_v7
 	compile supportDependencies.preference_v14
-	compile supportDependencies.vector_drawable
+	compile supportDependencies.vectorDrawable
 	compile (supportDependencies.design) {
 		exclude module: 'support-v4'
 		exclude module: 'support-annotations'
@@ -74,21 +74,34 @@ dependencies {
 		exclude module: 'support-annotations'
 	}
 
-	// Flexible Adapter
-	compile 'eu.davidea:flexible-adapter:5.0.0-SNAPSHOT'
+	// Flexible Adapter - https://github.com/davideas/FlexibleAdapter
+	compile libraries.flexibleAdapter
 
-	// Google Maps
-	compile 'com.google.android.gms:play-services-maps:10.2.1'
+	// Firebase
+	compile libraries.firebaseConfig
+	compile libraries.firebaseMessaging
+
+	// Google Maps - https://developers.google.com/maps/documentation/android-api/
+	compile libraries.googleMaps
+
+	// GSon, Retrofit and OkHttp
+	compile libraries.gson
+	compile libraries.gsonConverter
+	compile libraries.retrofit
+	compile libraries.okhttp_logging
+
+	// Timber (logger)
+	compile libraries.timber
 
 	// Glide (Image Loader & Caching)
-	compile 'com.github.bumptech.glide:glide:4.0.0-RC0'
-	annotationProcessor 'com.github.bumptech.glide:compiler:4.0.0-RC0'
+	compile libraries.glide
+	annotationProcessor libraries.glideCompiler
 
 	// Butter Knife (View Injector)
-	compile 'com.jakewharton:butterknife:8.5.1'
-	annotationProcessor 'com.jakewharton:butterknife-compiler:8.5.1'
+	compile	libraries.butterKnife
+	annotationProcessor libraries.butterKnifeCompiler
 
 	// UI Widgets
-	compile 'eu.davidea:flipview:1.1.3'
+	compile widgets.flipView
 
 }

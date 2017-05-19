@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "xxxxxxxxxxxxx",
+    "firebase_url": "https://xxxxxxxxxxxxx.firebaseio.com",
+    "project_id": "xxxxxxxxxxxx",
+    "storage_bucket": "xxxxxxxxxxxxxx.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:xxxxxxxxx:android:xxxxxxxxxxx",
+        "android_client_info": {
+          "package_name": "eu.davidea.starterapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
