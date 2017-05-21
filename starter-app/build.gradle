@@ -1,4 +1,11 @@
 apply plugin: 'com.android.application'
+apply plugin: 'eu.davidea.grabver'
+
+versioning {
+	major 1
+	minor 0
+	//suffix = 'b1'
+}
 
 android {
 	compileSdkVersion targetSdk
@@ -7,8 +14,8 @@ android {
 		applicationId 'eu.davidea.starterapp'
 		minSdkVersion minSdk
 		targetSdkVersion targetSdk
-		versionCode appCode
-		versionName appVersion + appDate
+		versionCode versioning.versionCode
+		versionName versioning.fullVersionName
 
 		// https://developer.android.com/studio/write/vector-asset-studio.html
 		vectorDrawables.useSupportLibrary = true
@@ -18,7 +25,7 @@ android {
 		applicationVariants.all { variant ->
 			variant.outputs.each { output ->
 				def file = output.outputFile
-				def fileName = 'starter-app-v' + appVersion + '-c' + buildCode + '.apk'
+				def fileName = 'starter-app-v' + versioning.versionName + '-c' + versioning.versionCode + '.apk'
 				output.outputFile = new File(file.parentFile, fileName)
 			}
 		}
@@ -37,7 +44,9 @@ android {
 	testOptions {
 		unitTests.returnDefaultValues = true
 	}
-
+	lintOptions {
+		abortOnError false
+	}
 	dataBinding {
 		enabled = true
 	}

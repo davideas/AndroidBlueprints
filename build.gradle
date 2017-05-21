@@ -8,10 +8,6 @@ ext {
 	// Support and Build tools version
 	minSdk = 19
 	targetSdk = 25
-	appCode = 1
-	appVersion = "1.0"
-	appDate = " built on " + getDate()
-	buildCode = 1
 	buildTools = "25.0.3"
 	supportVer = "25.3.1"
 	constraintVer = "1.1.0-beta1"
@@ -70,18 +66,15 @@ ext {
 buildscript {
 	repositories {
 		jcenter()
+		mavenLocal()
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:2.3.2'
 		classpath 'com.google.gms:google-services:3.0.0'
+		classpath 'eu.davidea:grabver:1.0.0'
 		// NOTE: Do not place your application dependencies here; they belong
 		// in the individual module build.gradle files
 	}
-}
-
-static def getDate() {
-	def date = new Date()
-	return date.format('yyyy.MM.dd')
 }
 
 allprojects {
