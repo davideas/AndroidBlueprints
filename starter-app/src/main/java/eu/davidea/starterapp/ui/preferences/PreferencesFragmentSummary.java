@@ -1,6 +1,6 @@
 /**
  * Copyright 2013 Gabriele Mariotti
- * Copyright 2015 for improvement and extensions by Davide Steduto
+ * Copyright 2015-2017 for improvement and extensions by Davide Steduto
  * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -34,8 +34,6 @@ import android.util.Log;
 
 import java.util.Set;
 
-//import android.preference.RingtonePreference;
-
 /**
  * Preference Summary
  */
@@ -44,7 +42,7 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 
 	private static final String TAG = PreferencesFragmentSummary.class.getSimpleName();
 
-//	RingtonePreference mRingtoneOnListener;
+	RingtonePreference mRingtonePreference;
 
 	/**
 	 * Must override this method and add the following lines:
@@ -61,11 +59,8 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 	@Override
 	public void onResume() {
 		super.onResume();
-
 		// Set up a listener whenever a key changes
-		getPreferenceScreen().getSharedPreferences()
-				.registerOnSharedPreferenceChangeListener(this);
-
+		getPreferenceScreen().getSharedPreferences().registerOnSharedPreferenceChangeListener(this);
 		initSummary();
 	}
 
@@ -93,11 +88,10 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 			}
 		} else {
 			updatePrefsSummary(sharedPreferences, p);
-//			if (p instanceof RingtonePreference) {
-//				p.setOnPreferenceChangeListener(new RingToneOnPreferenceChangeListener());
-//				//P ay attention: it is just an example!
-//				mRingtoneOnListener = (RingtonePreference) p;
-//			}
+			if (p instanceof RingtonePreference) {
+				p.setOnPreferenceChangeListener(new RingToneOnPreferenceChangeListener());
+				mRingtonePreference = (RingtonePreference) p;
+			}
 		}
 	}
 
@@ -106,12 +100,11 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 		super.onPause();
 
 		// Unregister the listener whenever a key changes
-		getPreferenceScreen().getSharedPreferences()
-				.unregisterOnSharedPreferenceChangeListener(this);
-//		if (mRingtoneOnListener != null) {
-//			// Pay attention: it is just an example!
-//			mRingtoneOnListener.setOnPreferenceChangeListener(null);
-//		}
+		getPreferenceScreen().getSharedPreferences().unregisterOnSharedPreferenceChangeListener(this);
+		if (mRingtonePreference != null) {
+			// Pay attention: it is just an example!
+			mRingtonePreference.setOnPreferenceChangeListener(null);
+		}
 	}
 
 	@Override
@@ -129,7 +122,8 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 	protected abstract String getCustomSummary(String key);
 
 	/**
-	 * Update summary
+	 * Update summary.
+	 * <p>Summary can be a simple resource string, a parametrized string or simply value.</p>
 	 *
 	 * @param sharedPreferences
 	 * @param pref
@@ -182,7 +176,7 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 			// Edit Preference
 			EditTextPreference editTextPref = (EditTextPreference) pref;
 			editTextPref.setSummary(resId > 0 ?
-					// Entry is parameterized into a Resource string
+					// Entry is parametrized into a Resource string
 					getResources().getString(resId, editTextPref.getText())
 					// Entry is displayed into summary directly
 					: editTextPref.getText());
@@ -190,18 +184,18 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 
 		} else if (pref instanceof MultiSelectListPreference) {
 			// MultiSelectList Preference
-			MultiSelectListPreference mlistPref = (MultiSelectListPreference) pref;
+			MultiSelectListPreference listPref = (MultiSelectListPreference) pref;
 			String summaryMListPref = "";
 			String and = "";
 
 			// Retrieve values
-			Set<String> values = mlistPref.getValues();
+			Set<String> values = listPref.getValues();
 			for (String value : values) {
 				// For each value retrieve index
-				int index = mlistPref.findIndexOfValue(value);
+				int index = listPref.findIndexOfValue(value);
 				// Retrieve entry from index
 				CharSequence mEntry = index >= 0
-						&& mlistPref.getEntries() != null ? mlistPref
+						&& listPref.getEntries() != null ? listPref
 						.getEntries()[index] : null;
 				if (mEntry != null) {
 					// Add summary
@@ -210,23 +204,21 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 				}
 			}
 			// Set summary
-			mlistPref.setSummary(summaryMListPref);
+			listPref.setSummary(summaryMListPref);
 
 			// Check https://github.com/Microsoft/ProjectOxford-Apps-MimickerAlarm/blob/master/Mimicker/app/src/main/java/com/microsoft/mimickeralarm/settings/RingtonePreference.java
 
-//		} else if (pref instanceof RingtonePreference) {
-//			// Ringtone Preference
-//			RingtonePreference rtPref = (RingtonePreference) pref;
-//			String uri;
-//			if (rtPref != null) {
-//				uri = sharedPreferences.getString(rtPref.getKey(), null);
-//				if (uri != null) {
-//					Ringtone ringtone = RingtoneManager.getRingtone(
-//							getActivity(), Uri.parse(uri));
-//					//Pay attention: it is just an example!
-//					pref.setSummary(ringtone.getTitle(getActivity()));
-//				}
-//			}
+		} else if (pref instanceof RingtonePreference) {
+			// Ringtone Preference
+			RingtonePreference rtPref = (RingtonePreference) pref;
+			String uri;
+			uri = sharedPreferences.getString(rtPref.getKey(), null);
+			if (uri != null) {
+				Ringtone ringtone = RingtoneManager.getRingtone(
+						getActivity(), Uri.parse(uri));
+				//Pay attention: it is just an example!
+				pref.setSummary(ringtone.getTitle(getActivity()));
+			}
 
 //		} else if (pref instanceof NumberPickerPreference) {
 //			// MyNumberPickerPreference
