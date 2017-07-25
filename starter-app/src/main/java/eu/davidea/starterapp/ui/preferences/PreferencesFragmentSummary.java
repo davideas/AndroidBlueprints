@@ -22,6 +22,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.StringRes;
 import android.support.v14.preference.MultiSelectListPreference;
 import android.support.v14.preference.PreferenceFragment;
 import android.support.v7.preference.EditTextPreference;
@@ -30,9 +31,11 @@ import android.support.v7.preference.Preference;
 import android.support.v7.preference.Preference.OnPreferenceChangeListener;
 import android.support.v7.preference.PreferenceCategory;
 import android.support.v7.preference.TwoStatePreference;
-import android.util.Log;
 
 import java.util.Set;
+
+import eu.davidea.starterapp.R;
+import eu.davidea.starterapp.utils.Log;
 
 /**
  * Preference Summary
@@ -113,10 +116,13 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 		updatePrefsSummary(sharedPreferences, findPreference(key));
 	}
 
+	@StringRes
 	protected abstract int getSummaryResId(String key);
 
+	@StringRes
 	protected abstract int getSummaryOnResId(String key);
 
+	@StringRes
 	protected abstract int getSummaryOffResId(String key);
 
 	protected abstract String getCustomSummary(String key);
@@ -126,39 +132,45 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 	 * <p>Summary can be a simple resource string, a parametrized string or simply value.</p>
 	 *
 	 * @param sharedPreferences
-	 * @param pref
+	 * @param preference
 	 */
-	protected void updatePrefsSummary(SharedPreferences sharedPreferences, Preference pref) {
+	protected void updatePrefsSummary(SharedPreferences sharedPreferences, Preference preference) {
 
-		if (pref == null)
+		if (preference == null)
 			return;
 
-		int resId = getSummaryResId(pref.getKey());
+		int resId = getSummaryResId(preference.getKey());
 
-		if (pref instanceof ListPreference) {
+		// Delegate setSummary to each preference type
+		if (preference instanceof IPreference) {
+			IPreference pref = (IPreference) preference;
+			pref.setSummary(resId);
+			return;
+		}
+
+		if (preference instanceof ListPreference) {
 			// List Preference
-			ListPreference listPref = (ListPreference) pref;
+			ListPreference listPref = (ListPreference) preference;
 			listPref.setSummary(resId > 0 ?
 					// Entry is parametrized into a Resource string
-					getResources().getString(getSummaryResId(pref.getKey()), listPref.getEntry())
+					getResources().getString(resId, listPref.getEntry())
 					// Entry is displayed into summary directly
 					: listPref.getEntry());
-			Log.d(TAG, pref.getKey() + " resId=" + resId + " Summary=" + pref.getSummary());
+			Log.v("%s resId=%s Summary=%s", preference.getKey(), resId, preference.getSummary());
 
-		} else if (pref instanceof TwoStatePreference) {
+		} else if (preference instanceof TwoStatePreference) {
 			// CheckBox Preference
-			TwoStatePreference checkBox = (TwoStatePreference) pref;
+			TwoStatePreference checkBox = (TwoStatePreference) preference;
 			if (checkBox.isChecked()) {
 				// Display a Positive resourceId String if a correspondence has
 				// been assigned for this pref. Otherwise Nothing is displayed
-				resId = getSummaryOnResId(pref.getKey());
-				checkBox.setSummaryOn(resId > 0 ? getResources().getString(resId) : null);
-				Log.d(TAG, pref.getKey() + " resIdOn=" + resId + " Summary=" + checkBox.getSummaryOn());
+				int resIdOn = getSummaryOnResId(preference.getKey());
+				checkBox.setSummaryOn(resIdOn > 0 ? getResources().getString(resIdOn) : null);
+				Log.d("%s resIdOn=%s Summary=%s", preference.getKey(), resIdOn, checkBox.getSummaryOn());
 			} else {
 				// If an extra specific resource exists this is added to the
 				// Negative value otherwise nothing.
-				resId = getSummaryResId(pref.getKey());
-				int resIdOff = getSummaryOffResId(pref.getKey());
+				int resIdOff = getSummaryOffResId(preference.getKey());
 				if (resId > 0) {
 					checkBox.setSummaryOff(resIdOff > 0 ?
 							getResources().getString(resIdOff) + "\n" +
@@ -169,22 +181,22 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 					checkBox.setSummaryOff(resIdOff > 0 ?
 							getResources().getString(resIdOff) : null);
 				}
-				Log.d(TAG, pref.getKey() + " resId=" + resId + " resIdOff=" + resIdOff + " Summary=" + checkBox.getSummaryOff());
+				Log.d("%s resId=%s resIdOff=%s Summary=%s", preference.getKey(), resId, resIdOff, checkBox.getSummaryOff());
 			}
 
-		} else if (pref instanceof EditTextPreference) {
+		} else if (preference instanceof EditTextPreference) {
 			// Edit Preference
-			EditTextPreference editTextPref = (EditTextPreference) pref;
+			EditTextPreference editTextPref = (EditTextPreference) preference;
 			editTextPref.setSummary(resId > 0 ?
 					// Entry is parametrized into a Resource string
 					getResources().getString(resId, editTextPref.getText())
 					// Entry is displayed into summary directly
 					: editTextPref.getText());
-			Log.d(TAG, pref.getKey() + " resId=" + resId + " Summary=" + pref.getSummary());
+			Log.v("%s resId=%s Summary=%s", preference.getKey(), resId, preference.getSummary());
 
-		} else if (pref instanceof MultiSelectListPreference) {
+		} else if (preference instanceof MultiSelectListPreference) {
 			// MultiSelectList Preference
-			MultiSelectListPreference listPref = (MultiSelectListPreference) pref;
+			MultiSelectListPreference listPref = (MultiSelectListPreference) preference;
 			String summaryMListPref = "";
 			String and = "";
 
@@ -208,18 +220,37 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 
 			// Check https://github.com/Microsoft/ProjectOxford-Apps-MimickerAlarm/blob/master/Mimicker/app/src/main/java/com/microsoft/mimickeralarm/settings/RingtonePreference.java
 
-		} else if (pref instanceof RingtonePreference) {
+		} else if (preference instanceof RingtonePreference) {
 			// Ringtone Preference
-			RingtonePreference rtPref = (RingtonePreference) pref;
-			String uri;
-			uri = sharedPreferences.getString(rtPref.getKey(), null);
+			RingtonePreference rtPref = (RingtonePreference) preference;
+			String uri = sharedPreferences.getString(rtPref.getKey(), null);
 			if (uri != null) {
-				Ringtone ringtone = RingtoneManager.getRingtone(
-						getActivity(), Uri.parse(uri));
+				Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(uri));
 				//Pay attention: it is just an example!
-				pref.setSummary(ringtone.getTitle(getActivity()));
+				preference.setSummary(ringtone.getTitle(preference.getContext()));
+			} else {
+				// Empty values correspond to 'silent' (no ringtone).
+				preference.setSummary(R.string.pref_ringtone_silent);
 			}
 
+//		} else if (preference instanceof android.preference.RingtonePreference) {
+//			// For ringtone preferences, look up the correct display value using RingtoneManager.
+//			if (TextUtils.isEmpty(stringValue)) {
+//				// Empty values correspond to 'silent' (no ringtone).
+//				preference.setSummary(R.string.pref_ringtone_silent);
+//
+//			} else {
+//				Ringtone ringtone = RingtoneManager.getRingtone(preference.getContext(), Uri.parse(stringValue));
+//
+//				if (ringtone == null) {
+//					// Clear the summary if there was a lookup error.
+//					preference.setSummary(null);
+//				} else {
+//					// Set the summary to reflect the new ringtone display name.
+//					String name = ringtone.getTitle(preference.getContext());
+//					preference.setSummary(name);
+//				}
+//			}
 //		} else if (pref instanceof NumberPickerPreference) {
 //			// MyNumberPickerPreference
 //			NumberPickerPreference nPickerPref = (NumberPickerPreference) pref;
@@ -227,12 +258,12 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 
 		} else {// It's already a Preference Class, therefore no cast!
 			// For custom preferences
-			pref.setSummary(resId > 0 ?
+			preference.setSummary(resId > 0 ?
 					// Entry is parametrized into a Resource string
-					getResources().getString(getSummaryResId(pref.getKey()), getCustomSummary(pref.getKey()))
+					getResources().getString(getSummaryResId(preference.getKey()), getCustomSummary(preference.getKey()))
 					// Entry is displayed into summary directly
-					: getCustomSummary(pref.getKey()));
-			Log.d(TAG, pref.getKey() + " resId=" + resId + " Summary=" + pref.getSummary());
+					: getCustomSummary(preference.getKey()));
+			Log.v("%s resId=%s Summary=%s", preference.getKey(), resId, preference.getSummary());
 		}
 	}
 
@@ -247,8 +278,8 @@ public abstract class PreferencesFragmentSummary extends PreferenceFragment
 		public boolean onPreferenceChange(Preference pref, Object newValue) {
 			if (newValue != null && newValue instanceof String) {
 				String uri = (String) newValue;
-				Ringtone ringtone = RingtoneManager.getRingtone(getActivity(), Uri.parse(uri));
-				pref.setSummary(ringtone.getTitle(getActivity()));
+				Ringtone ringtone = RingtoneManager.getRingtone(pref.getContext(), Uri.parse(uri));
+				pref.setSummary(ringtone.getTitle(pref.getContext()));
 			}
 			return true;
 		}

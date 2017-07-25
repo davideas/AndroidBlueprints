@@ -17,6 +17,7 @@ android {
 		versionCode versioning.versionCode
 		versionName versioning.fullVersionName
 
+		// https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88
 		// https://developer.android.com/studio/write/vector-asset-studio.html
 		vectorDrawables.useSupportLibrary = true
 
@@ -37,7 +38,7 @@ android {
 		}
 		release {
 			zipAlignEnabled true
-			minifyEnabled false
+			minifyEnabled true
 			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 		}
 	}

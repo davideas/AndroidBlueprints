@@ -36,7 +36,7 @@ ext {
 	timberLib = "4.5.1"
 	okHttpLib = "3.8.0"
 	glideLib = "4.0.0-RC0"
-	flexibleAdapterLib = "5.0.0-SNAPSHOT"
+	flexibleAdapterLib = "5.0.0-rc2"
 
 	libraries = [
 			firebaseConfig     : "com.google.firebase:firebase-config:${firebaseLib}",
@@ -80,7 +80,7 @@ buildscript {
 allprojects {
 	repositories {
 		jcenter()
-		maven {url 'https://oss.sonatype.org/content/repositories/snapshots/' }
+		maven {url 'https://oss.sonatype.org/content/repositories/snapshots/'}
 		maven {url 'https://maven.google.com'}
 	}
 }

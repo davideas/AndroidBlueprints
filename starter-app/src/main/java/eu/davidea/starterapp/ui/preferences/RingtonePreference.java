@@ -45,8 +45,8 @@ import android.util.AttributeSet;
 
 /**
  * This is a custom preference class that handles the ringtone setting for an alarm. This class
- * takes care of showing the system Ringtone picker so that the user can pick the ringtone of their
- * choice.
+ * takes care of showing the system Ringtone picker so that the user can pick the ringtone of
+ * their choice.
  */
 public class RingtonePreference extends Preference {
     public static final int RINGTONE_PICKER_REQUEST = 1000;
