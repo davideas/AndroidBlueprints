@@ -66,7 +66,7 @@ ext {
 buildscript {
 	repositories {
 		jcenter()
-		mavenLocal()
+		maven {url "http://dl.bintray.com/davideas/maven"}
 	}
 	dependencies {
 		classpath 'com.android.tools.build:gradle:2.3.3'
