@@ -29,7 +29,6 @@ import java.util.Date;
 import java.util.Locale;
 
 import eu.davidea.flexibleadapter.utils.FlexibleUtils;
-import eu.davidea.starterapp.R;
 
 @SuppressWarnings("WeakerAccess")
 public final class Utils {
