@@ -12,20 +12,20 @@ import eu.davidea.starterapp.utils.Utils;
  */
 public final class SimpleOnTouchListener implements View.OnTouchListener {
 
-	private Context context;
+    private Context context;
 
-	public SimpleOnTouchListener(Context context) {
-		this.context = context;
-	}
+    public SimpleOnTouchListener(Context context) {
+        this.context = context;
+    }
 
-	@Override
-	public boolean onTouch(final View view, MotionEvent event) {
-		if (event.getAction() == MotionEvent.ACTION_UP) {
-			view.requestFocus();
-			Utils.hideSoftInputFrom(context, view);
-			view.performClick();
-		}
-		return true;
-	}
+    @Override
+    public boolean onTouch(final View view, MotionEvent event) {
+        if (event.getAction() == MotionEvent.ACTION_UP) {
+            view.requestFocus();
+            Utils.hideSoftInputFrom(context, view);
+            view.performClick();
+        }
+        return true;
+    }
 
 }

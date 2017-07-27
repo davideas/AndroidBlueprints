@@ -15,19 +15,19 @@ import eu.davidea.starterapp.R;
 
 
 /**
- * Created by henen on 27/07/2017.
+ * @author henen
+ * @since 27/07/2017
  */
+public class ResourcesHelper {
 
-public class ResourcesHelper
-{
-	/*
+    /*
 	 * ================
 	 * Constructor
 	 * ================
 	 */
 
-	private ResourcesHelper(){}
-
+    private ResourcesHelper() {
+    }
 
 	/*
 	 * ================
@@ -35,57 +35,50 @@ public class ResourcesHelper
 	 * ================
 	 */
 
-	/**
-	 * Gets drawable from uri.
-	 *
-	 * @param path the path
-	 * @return the drawable from uri
-	 */
-	public static Drawable getDrawableFromUri (@NonNull Activity activity, @NonNull Uri path)
-	{
-		Drawable result;
-		try
-		{
-			InputStream inputStream = activity.getContentResolver().openInputStream(path);
-			result = Drawable.createFromStream(inputStream, path.toString());
-		}
-		catch (FileNotFoundException e)
-		{
-			result = activity.getResources().getDrawable(R.mipmap.ic_launcher);
-		}
+    /**
+     * Gets drawable from uri.
+     *
+     * @param path the path
+     * @return the drawable from uri
+     */
+    public static Drawable getDrawableFromUri(@NonNull Activity activity, @NonNull Uri path) {
+        Drawable result;
+        try {
+            InputStream inputStream = activity.getContentResolver().openInputStream(path);
+            result = Drawable.createFromStream(inputStream, path.toString());
+        } catch (FileNotFoundException e) {
+            result = activity.getResources().getDrawable(R.mipmap.ic_launcher);
+        }
 
-		return result;
-	}
+        return result;
+    }
 
-	/**
-	 * get uri to any resource type
-	 *
-	 * @param resId - resource id
-	 * @return - Uri to resource by given id
-	 */
-	public static Uri getUriToResource (@NonNull Activity activity, @AnyRes int resId)
-	{
-		Uri resUri = null;
-		try
-		{
-			/** Return a Resources instance for your application's package. */
-			Resources res = activity.getResources();
-			/**
-			 * Creates a Uri which parses the given encoded URI string.
-			 * @param uriString an RFC 2396-compliant, encoded URI
-			 * @throws NullPointerException if uriString is null
-			 * @return Uri for this given uri string
-			 */
-			resUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + res.getResourcePackageName(resId) + '/' + res
-					.getResourceTypeName(resId) + '/' + res.getResourceEntryName(resId));
-			/** return uri */
+    /**
+     * get uri to any resource type
+     *
+     * @param resId - resource id
+     * @return - Uri to resource by given id
+     */
+    public static Uri getUriToResource(@NonNull Activity activity, @AnyRes int resId) {
+        Uri resUri = null;
+        try {
+            /** Return a Resources instance for your application's package. */
+            Resources res = activity.getResources();
+            /**
+             * Creates a Uri which parses the given encoded URI string.
+             * @param uriString an RFC 2396-compliant, encoded URI
+             * @throws NullPointerException if uriString is null
+             * @return Uri for this given uri string
+             */
+            resUri = Uri.parse(ContentResolver.SCHEME_ANDROID_RESOURCE + "://" + res.getResourcePackageName(resId) + '/' + res
+                    .getResourceTypeName(resId) + '/' + res.getResourceEntryName(resId));
+            /** return uri */
 
-		}
-		catch (Resources.NotFoundException e)
-		{
-			e.printStackTrace();
-		}
+        } catch (Resources.NotFoundException e) {
+            e.printStackTrace();
+        }
 
-		return resUri;
-	}
+        return resUri;
+    }
+
 }

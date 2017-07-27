@@ -11,6 +11,6 @@ import android.support.annotation.StringRes;
  */
 public interface IPreference {
 
-	void setSummary(@StringRes int resId);
+    void setSummary(@StringRes int resId);
 
 }

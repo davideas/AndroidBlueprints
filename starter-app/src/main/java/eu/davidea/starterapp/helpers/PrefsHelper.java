@@ -1,20 +1,13 @@
 package eu.davidea.starterapp.helpers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 
 import java.util.Map;
 
 import static android.content.Context.MODE_PRIVATE;
 
-
-/**
- * The type My prefs helper.
- */
-@SuppressWarnings("All")
-public final class PrefsHelper
-{
+public final class PrefsHelper {
 
     /*
      * =================
@@ -24,11 +17,9 @@ public final class PrefsHelper
 
     /**
      * Instantiates a new My prefs helper.
-     *
-     * @param activity the activity
      */
-    private PrefsHelper (){}
-
+    private PrefsHelper() {
+    }
 
     /*
      * =================
@@ -42,8 +33,7 @@ public final class PrefsHelper
      * @param key   the key
      * @param value the value
      */
-    public static void putBoolean(Activity activity, String key, boolean value)
-    {
+    public static void putBoolean(Activity activity, String key, boolean value) {
         SharedPreferences sharedPreferences = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
@@ -57,8 +47,7 @@ public final class PrefsHelper
      * @param key       the key
      * @param value     the value
      */
-    public static void putBoolean(Activity activity, String prefsFile, String key, boolean value)
-    {
+    public static void putBoolean(Activity activity, String prefsFile, String key, boolean value) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(prefsFile, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putBoolean(key, value);
@@ -72,8 +61,7 @@ public final class PrefsHelper
      * @param defaultValue the default value
      * @return the boolean
      */
-    public static boolean checkBoolean(Activity activity, String key, boolean defaultValue)
-    {
+    public static boolean checkBoolean(Activity activity, String key, boolean defaultValue) {
         return activity.getPreferences(MODE_PRIVATE).getBoolean(key, defaultValue);
     }
 
@@ -85,8 +73,7 @@ public final class PrefsHelper
      * @param defaultValue the default value
      * @return the boolean
      */
-    public static boolean checkBoolean(Activity activity, String prefsFile, String key, boolean defaultValue)
-    {
+    public static boolean checkBoolean(Activity activity, String prefsFile, String key, boolean defaultValue) {
         return activity.getSharedPreferences(prefsFile, MODE_PRIVATE).getBoolean(key, defaultValue);
     }
 
@@ -96,8 +83,7 @@ public final class PrefsHelper
      * @param key   the key
      * @param value the value
      */
-    public static void putString(Activity activity, String key, String value)
-    {
+    public static void putString(Activity activity, String key, String value) {
         SharedPreferences sharedPreferences = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -111,8 +97,7 @@ public final class PrefsHelper
      * @param key       the key
      * @param value     the value
      */
-    public static void putString(Activity activity, String prefsFile, String key, String value)
-    {
+    public static void putString(Activity activity, String prefsFile, String key, String value) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(prefsFile, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putString(key, value);
@@ -124,13 +109,11 @@ public final class PrefsHelper
      *
      * @param map the map
      */
-    public static void putStringsFromMap(Activity activity, Map<String, String> map)
-    {
+    public static void putStringsFromMap(Activity activity, Map<String, String> map) {
         SharedPreferences sharedPreferences = activity.getPreferences(MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        for (Map.Entry<String, String> pair : map.entrySet())
-        {
+        for (Map.Entry<String, String> pair : map.entrySet()) {
             editor.putString(pair.getKey(), pair.getValue());
         }
 
@@ -143,13 +126,11 @@ public final class PrefsHelper
      * @param prefsFile the prefs file
      * @param map       the map
      */
-    public static void putStringsFromMap(Activity activity, String prefsFile, Map<String, String> map)
-    {
+    public static void putStringsFromMap(Activity activity, String prefsFile, Map<String, String> map) {
         SharedPreferences sharedPreferences = activity.getSharedPreferences(prefsFile, MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
 
-        for (Map.Entry<String, String> pair : map.entrySet())
-        {
+        for (Map.Entry<String, String> pair : map.entrySet()) {
             editor.putString(pair.getKey(), pair.getValue());
         }
 
@@ -163,8 +144,7 @@ public final class PrefsHelper
      * @param defaultValue the default value
      * @return the string
      */
-    public static String checkString(Activity activity, String key, String defaultValue)
-    {
+    public static String checkString(Activity activity, String key, String defaultValue) {
         return activity.getPreferences(MODE_PRIVATE).getString(key, defaultValue);
     }
 
@@ -176,8 +156,7 @@ public final class PrefsHelper
      * @param defaultValue the default value
      * @return the string
      */
-    public static String checkString(Activity activity, String prefsFile, String key, String defaultValue)
-    {
+    public static String checkString(Activity activity, String prefsFile, String key, String defaultValue) {
         return activity.getSharedPreferences(prefsFile, MODE_PRIVATE).getString(key, defaultValue);
     }
 }
