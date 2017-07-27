@@ -81,5 +81,13 @@
 
 	<string name="pref_title_vibrate">Vibrate</string>
 	<string name="title_activity_maps">Map</string>
+	
+	<!-- Facebook SDK keys -->
+	<string name = "facebook_app_id">xxxxxxxxxxxxxxxxx</string>
+	
+	<string name = "fb_login_protocol_scheme">xxxxxxxxxxxxxxxxx</string>
+	
+	<string name = "facebook_client_token">xxxxxxxxxxxxxxxxx</string>
+
 
 </resources>

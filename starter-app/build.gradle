@@ -114,4 +114,7 @@ dependencies {
 	// UI Widgets
 	compile widgets.flipView
 
+	// Facebook SDK - https://developers.facebook.com/docs/android
+	compile libraries.facebook_sdk
+
 }
