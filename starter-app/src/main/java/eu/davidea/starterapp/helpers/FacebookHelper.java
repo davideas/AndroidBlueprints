@@ -17,6 +17,9 @@ import android.util.Base64;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.target.SimpleTarget;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -33,11 +36,6 @@ import com.facebook.login.widget.LoginButton;
 import com.facebook.share.Sharer;
 import com.facebook.share.model.ShareLinkContent;
 import com.facebook.share.widget.ShareDialog;
-import com.myandroidapplication.R;
-import com.squareup.picasso.MemoryPolicy;
-import com.squareup.picasso.NetworkPolicy;
-import com.squareup.picasso.Picasso;
-import com.squareup.picasso.Target;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -52,11 +50,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import eu.davidea.starterapp.R;
+
 
 /**
  * The type Facebook helper.
  */
-@SuppressWarnings ("WeakerAccess")
+@SuppressWarnings("WeakerAccess")
 public class FacebookHelper
 {
     /* Constants */
@@ -86,14 +86,12 @@ public class FacebookHelper
     private AccessTokenTracker mAccessTokenTracker;
     private ProfileTracker mProfileTracker;
     private AccessToken mFacebookAccessToken;
-    private Target mTarget;
     private BitmapDrawable mUserImage;
 
     /* User data */
     private List<String> mReadPermissionsRequested;
     private List<String> mUserDataFieldsRequested;
     private Map<String, String> mUserData;
-
 
     /**
      * The interface Facebook login result callback.
@@ -107,24 +105,24 @@ public class FacebookHelper
          *
          * @param result the result
          */
-        void onFacebookLoginSuccess (LoginResult result);
+        void onFacebookLoginSuccess(LoginResult result);
 
         /**
          * On facebook login cancel.
          */
-        void onFacebookLoginCancel ();
+        void onFacebookLoginCancel();
 
         /**
          * On facebook login error.
          *
          * @param e the e
          */
-        void onFacebookLoginError (FacebookException e);
+        void onFacebookLoginError(FacebookException e);
 
         /**
          * On facebook login image download failed.
          */
-        void onFacebookLoginImageDownloadFailed ();
+        void onFacebookLoginImageDownloadFailed();
     }
 
     /**
@@ -132,13 +130,13 @@ public class FacebookHelper
      */
     public interface FacebookShareResultCallback
     {
-        void onFacebookShareSuccess (Sharer.Result result);
+        void onFacebookShareSuccess(Sharer.Result result);
 
-        void onFacebookShareCancel ();
+        void onFacebookShareCancel();
 
-        void onFacebookShareError (FacebookException error);
+        void onFacebookShareError(FacebookException error);
 
-        void onFacebookShareCannotShowDialog ();
+        void onFacebookShareCannotShowDialog();
     }
 
 
@@ -323,17 +321,15 @@ public class FacebookHelper
     {
         if (isLoggedIn())
         {
-            PrefsHelper helper = new PrefsHelper(activity);
-
             // restore user data
-            String id = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_ID, null);
-            String fistName = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_FIRST_NAME, null);
-            String lastName = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_LAST_NAME, null);
-            String email = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_EMAIL, null);
-            String birthday = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_BIRTHDAY, null);
-            String gender = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_GENDER, null);
-            String location = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_LOCATION, null);
-            String imageUrl = helper.checkString(FACEBOOK_PREFERENCES, FACEBOOK_USER_IMAGE_URL, null);
+            String id = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_ID, null);
+            String fistName = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_FIRST_NAME, null);
+            String lastName = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LAST_NAME, null);
+            String email = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_EMAIL, null);
+            String birthday = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_BIRTHDAY, null);
+            String gender = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_GENDER, null);
+            String location = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LOCATION, null);
+            String imageUrl = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_IMAGE_URL, null);
 
             // init data
             mUserData.put(FACEBOOK_USER_ID, id);
@@ -461,7 +457,6 @@ public class FacebookHelper
 
     /**
      * Get requested user data from Facebook
-     *
      */
     private void getUserProfile(final Activity activity)
     {
@@ -543,7 +538,7 @@ public class FacebookHelper
             if (object.has("location"))
             {
                 String value = object.getString("location");
-                mUserData.put(FACEBOOK_USER_LOCATION,value);
+                mUserData.put(FACEBOOK_USER_LOCATION, value);
                 userPrefs.put(FACEBOOK_USER_ID, value);
             }
         }
@@ -552,7 +547,7 @@ public class FacebookHelper
             // TODO: 26/07/2017 log error
         }
 
-        new PrefsHelper(activity).putStringsFromMap(FACEBOOK_PREFERENCES, userPrefs);
+        PrefsHelper.putStringsFromMap(activity, FACEBOOK_PREFERENCES, userPrefs);
         if (imageUrl != null)
         {
             downloadImageUrl(activity, imageUrl);
@@ -561,25 +556,22 @@ public class FacebookHelper
 
     private void downloadImageUrl(final Activity activity, final String imageUrl)
     {
-        mTarget = new Target()
-        {
-            @Override
-            public void onBitmapLoaded(Bitmap bitmap, Picasso.LoadedFrom from)
-            {
-                mUserImage = new BitmapDrawable(activity.getResources(), bitmap);
-                mFacebookLoginResultCallBack.onFacebookLoginSuccess(mLoginResult);
-
-            }
+        final SimpleTarget<Bitmap> target = new SimpleTarget<Bitmap>() {
 
             @Override
-            public void onBitmapFailed(Drawable errorDrawable)
+            public void onLoadFailed(Exception e, Drawable errorDrawable)
             {
+                super.onLoadFailed(e, errorDrawable);
                 mFacebookLoginResultCallBack.onFacebookLoginImageDownloadFailed();
+
             }
 
             @Override
-            public void onPrepareLoad(Drawable placeHolderDrawable){}
-
+            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation)
+            {
+                mUserImage = new BitmapDrawable(activity.getResources(), resource);
+                mFacebookLoginResultCallBack.onFacebookLoginSuccess(mLoginResult);
+            }
         };
 
         new Handler(Looper.getMainLooper()).post(new Runnable()
@@ -587,12 +579,11 @@ public class FacebookHelper
             @Override
             public void run()
             {
-                Picasso picasso = Picasso.with(activity);
-                picasso.load(imageUrl)
-                        .networkPolicy(NetworkPolicy.NO_CACHE, NetworkPolicy.NO_STORE)
-                        .memoryPolicy(MemoryPolicy.NO_CACHE, MemoryPolicy.NO_STORE)
+                Glide.with(activity.getApplicationContext())
+                        .load(imageUrl)
+                        .asBitmap()
                         .placeholder(R.mipmap.ic_launcher_round)
-                        .into(mTarget);
+                        .into(target);
             }
         });
     }
@@ -677,7 +668,7 @@ public class FacebookHelper
     /**
      * Gets user specific data field.
      * The user data keys are the constants at the start of this class, for example:
-     *{@value FACEBOOK_PERMISSION_EMAIL}
+     * {@value FACEBOOK_PERMISSION_EMAIL}
      *
      * @param field the field/key you wish to receive
      * @return the user data field
@@ -699,7 +690,7 @@ public class FacebookHelper
         return this.mUserData;
     }
 
-    public BitmapDrawable getUserImage()
+    public Drawable getUserImage()
     {
         return this.mUserImage;
     }
@@ -741,10 +732,10 @@ public class FacebookHelper
 
     /**
      * Default read permission asked for are:
-     *
+     * <p>
      * {@value FACEBOOK_PERMISSION_PUBLIC_PROFILE}
      * {@value FACEBOOK_PERMISSION_EMAIL}
-     *
+     * <p>
      * If you require more read permissions, you may pass them here in a form of a list
      * After {@link #initHelper(Activity)} ,
      * And before {@link #signIn(Activity, FacebookLoginResultCallback)}, {@link #signIn(Activity, FacebookLoginResultCallback, LoginButton)}
@@ -758,7 +749,7 @@ public class FacebookHelper
 
     /**
      * Default user data fetched are:
-     *
+     * <p>
      * {@value FACEBOOK_USER_FIRST_NAME}
      * {@value FACEBOOK_USER_LAST_NAME}
      * {@value FACEBOOK_USER_EMAIL}
@@ -767,7 +758,7 @@ public class FacebookHelper
      * {@value FACEBOOK_USER_GENDER}
      * {@value FACEBOOK_USER_LOCATION}
      * {@value FACEBOOK_USER_IMAGE_URL}
-     *
+     * <p>
      * If you require more user data, you may pass the params here in a form of a list
      *
      * @param userDataRequested the user data fields requested

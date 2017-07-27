@@ -105,7 +105,7 @@ dependencies {
 
 	// Glide (Image Loader & Caching)
 	compile libraries.glide
-	annotationProcessor libraries.glideCompiler
+	//annotationProcessor libraries.glideCompiler
 
 	// Butter Knife (View Injector)
 	compile	libraries.butterKnife
