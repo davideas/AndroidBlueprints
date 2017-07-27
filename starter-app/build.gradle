@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 apply plugin: 'eu.davidea.grabver'
 
 versioning {
-	major 0
-	minor 1
-	//suffix = 'b1'
+	major 1
+	minor 0
+	preRelease = 'alpha1'
 }
 
 android {
@@ -14,8 +14,8 @@ android {
 		applicationId 'eu.davidea.starterapp'
 		minSdkVersion minSdk
 		targetSdkVersion targetSdk
-		versionCode versioning.versionCode
-		versionName versioning.fullVersionName
+		versionCode versioning.code
+		versionName versioning.name
 
 		// https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88
 		// https://developer.android.com/studio/write/vector-asset-studio.html
@@ -26,7 +26,7 @@ android {
 		applicationVariants.all { variant ->
 			variant.outputs.each { output ->
 				def file = output.outputFile
-				def fileName = 'starter-app-v' + versioning.versionName + '-c' + versioning.versionCode + '.apk'
+				def fileName = 'starter-app-v' + versioning.name + '-c' + versioning.code + '.apk'
 				output.outputFile = new File(file.parentFile, fileName)
 			}
 		}
