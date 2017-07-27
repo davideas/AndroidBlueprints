@@ -11,26 +11,22 @@ import android.support.annotation.NonNull;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
 
+import eu.davidea.starterapp.R;
+
+
 /**
  * Created by henen on 27/07/2017.
  */
 
 public class ResourcesHelper
 {
-	/* General obj */
-	private Activity mActivity;
-
-
 	/*
 	 * ================
 	 * Constructor
 	 * ================
 	 */
 
-	public ResourcesHelper(Activity activity)
-	{
-		this.mActivity = activity;
-	}
+	private ResourcesHelper(){}
 
 
 	/*
@@ -45,7 +41,7 @@ public class ResourcesHelper
 	 * @param path the path
 	 * @return the drawable from uri
 	 */
-	public Drawable getDrawableFromUri (@NonNull Activity activity, @NonNull Uri path)
+	public static Drawable getDrawableFromUri (@NonNull Activity activity, @NonNull Uri path)
 	{
 		Drawable result;
 		try
@@ -67,7 +63,7 @@ public class ResourcesHelper
 	 * @param resId - resource id
 	 * @return - Uri to resource by given id
 	 */
-	public Uri getUriToResource (@NonNull Activity activity, @AnyRes int resId)
+	public static Uri getUriToResource (@NonNull Activity activity, @AnyRes int resId)
 	{
 		Uri resUri = null;
 		try

@@ -1,7 +1,6 @@
 package eu.davidea.starterapp.helpers;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Resources;
 import android.view.View;
 import android.widget.Toast;
@@ -10,7 +9,7 @@ import android.widget.Toast;
  * Created by henen on 27/07/2017.
  */
 
-public class DisplayHelper
+public final class DisplayHelper
 {
 	/* General obj */
 	private Activity mActivity;
@@ -22,10 +21,7 @@ public class DisplayHelper
 	 * ================
 	 */
 
-	public DisplayHelper(Activity activity)
-	{
-		this.mActivity = activity;
-	}
+	private DisplayHelper(){}
 
 
 	/*
@@ -40,7 +36,7 @@ public class DisplayHelper
 	 * @param px the amount of px wanted
 	 * @return the amount of dp equal to px
 	 */
-	public int pxToDp(int px) {
+	public static int pxToDp(int px) {
 		return (int) (px / Resources.getSystem().getDisplayMetrics().density);
 	}
 
@@ -50,7 +46,7 @@ public class DisplayHelper
 	 * @param dp the amount of dp wanted
 	 * @return the amount of px equal to dp
 	 */
-	public int dpToPx(int dp) {
+	public static int dpToPx(int dp) {
 		return (int) (dp * Resources.getSystem().getDisplayMetrics().density);
 	}
 
@@ -59,23 +55,23 @@ public class DisplayHelper
 	 *
 	 * @return the status bar height
 	 */
-	public int getStatusBarHeight()
+	public static int getStatusBarHeight(Activity activity)
 	{
 		int height;
 
-		Resources myResources = mActivity.getResources();
+		Resources myResources = activity.getResources();
 		int idStatusBarHeight = myResources.getIdentifier("status_bar_height", "dimen", "android");
 		if (idStatusBarHeight > 0)
 		{
-			height = mActivity.getResources()
+			height = activity.getResources()
 					.getDimensionPixelSize(idStatusBarHeight);
-			Toast.makeText(mActivity, "Status Bar Height = " + height, Toast.LENGTH_LONG)
+			Toast.makeText(activity, "Status Bar Height = " + height, Toast.LENGTH_LONG)
 					.show();
 		}
 		else
 		{
 			height = 0;
-			Toast.makeText(mActivity, "Resources NOT found", Toast.LENGTH_LONG)
+			Toast.makeText(activity, "Resources NOT found", Toast.LENGTH_LONG)
 					.show();
 		}
 
@@ -85,13 +81,13 @@ public class DisplayHelper
 	/**
 	 * Sets window layout rtl.
 	 */
-	public void setWindowLayoutRtl()
+	public static void setWindowLayoutRtl(Activity activity)
 	{
-		if (mActivity.getWindow()
+		if (activity.getWindow()
 				.getDecorView()
 				.getLayoutDirection() == View.LAYOUT_DIRECTION_LTR)
 		{
-			mActivity.getWindow()
+			activity.getWindow()
 					.getDecorView()
 					.setLayoutDirection(View.LAYOUT_DIRECTION_RTL);
 		}
