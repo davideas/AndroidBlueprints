@@ -22,6 +22,7 @@ import android.view.MenuItem;
 import java.util.List;
 
 import eu.davidea.starterapp.R;
+import eu.davidea.starterapp.ui.preferences.IPreference;
 import eu.davidea.starterapp.utils.Utils;
 
 /**
@@ -94,6 +95,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     protected boolean isValidFragment(String fragmentName) {
         return PreferenceFragment.class.getName().equals(fragmentName)
+                || ApplicationBehaviourPreferenceFragment.class.getName().equals(fragmentName)
                 || GeneralPreferenceFragment.class.getName().equals(fragmentName)
                 || DataSyncPreferenceFragment.class.getName().equals(fragmentName)
                 || NotificationPreferenceFragment.class.getName().equals(fragmentName);
@@ -134,6 +136,7 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
      */
     @TargetApi(Build.VERSION_CODES.HONEYCOMB)
     public static class GeneralPreferenceFragment extends BasePreferenceFragment {
+
         @Override
         public void onCreate(Bundle savedInstanceState) {
             super.onCreate(savedInstanceState);
@@ -145,6 +148,31 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // per the Android Design guidelines.
             bindPreferenceSummaryToValue(findPreference("example_text"));
             bindPreferenceSummaryToValue(findPreference("example_list"));
+        }
+
+        @Override
+        public void onResume() {
+            super.onResume();
+//            ((AppCompatPreferenceActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_header_general);
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
+        }
+    }
+
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class ApplicationBehaviourPreferenceFragment extends BasePreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_app_behaviour);
+            setHasOptionsMenu(true);
+
+//            ((AppCompatPreferenceActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_title_app_behaviour);
+//            bindPreferenceSummaryToValue(findPreference("key_close_app_at_exit"));
+//            bindPreferenceSummaryToValue(findPreference("key_close_smart"));
         }
 
         @Override
@@ -191,7 +219,6 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
     }
 
-
     public static abstract class BasePreferenceFragment extends PreferenceFragment {
 
         @Override
@@ -206,6 +233,15 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onPreferenceChange(Preference preference, Object value) {
             String stringValue = value.toString();
+
+            int resId = 0;//getSummaryResId(preference.getKey());
+
+            // Delegate setSummary to each preference type
+            if (preference instanceof IPreference) {
+                IPreference pref = (IPreference) preference;
+                pref.setSummary(resId);
+                return true;
+            }
 
             if (preference instanceof ListPreference) {
                 // For list preferences, look up the correct display value in

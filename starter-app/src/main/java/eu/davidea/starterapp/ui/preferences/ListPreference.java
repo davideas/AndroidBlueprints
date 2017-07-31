@@ -10,7 +10,7 @@ import android.util.AttributeSet;
  * AndroidStarterApp
  */
 
-public class ListPreference extends android.support.v7.preference.ListPreference implements IPreference {
+public class ListPreference extends android.preference.ListPreference implements IPreference {
 
     public ListPreference(Context context) {
         super(context);
@@ -18,14 +18,6 @@ public class ListPreference extends android.support.v7.preference.ListPreference
 
     public ListPreference(Context context, AttributeSet attrs) {
         super(context, attrs);
-    }
-
-    public ListPreference(Context context, AttributeSet attrs, int defStyleAttr) {
-        super(context, attrs, defStyleAttr);
-    }
-
-    public ListPreference(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
     @Override

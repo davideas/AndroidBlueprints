@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/pref_title_app_behaviour">
+	
+	<PreferenceCategory
+		android:title="@string/pref_category_closure">
+		<SwitchPreference
+			android:title="@string/pref_title_close_at_exit"
+			android:key="key_close_app_at_exit"
+			android:defaultValue="true"/>
+		<SwitchPreference
+			android:title="@string/pref_title_close_smart"
+			android:key="key_close_smart"
+			android:defaultValue="false"/>
+	</PreferenceCategory>
+
+</PreferenceScreen>
