@@ -2,119 +2,124 @@ apply plugin: 'com.android.application'
 apply plugin: 'eu.davidea.grabver'
 
 versioning {
-	major 1
-	minor 0
-	preRelease = 'alpha1'
+    major 1
+    minor 0
+    preRelease = 'alpha1'
 }
 
 android {
-	compileSdkVersion targetSdk
-	buildToolsVersion buildTools
-	defaultConfig {
-		applicationId 'eu.davidea.starterapp'
-		minSdkVersion minSdk
-		targetSdkVersion targetSdk
-		versionCode versioning.code
-		versionName versioning.name
+    compileSdkVersion targetSdk
+    buildToolsVersion buildTools
+    defaultConfig {
+        applicationId 'eu.davidea.starterapp'
+        minSdkVersion minSdk
+        targetSdkVersion targetSdk
+        versionCode versioning.code
+        versionName versioning.name
 
-		// https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88
-		// https://developer.android.com/studio/write/vector-asset-studio.html
-		vectorDrawables.useSupportLibrary = true
+        // https://medium.com/@chrisbanes/appcompat-v23-2-age-of-the-vectors-91cbafa87c88
+        // https://developer.android.com/studio/write/vector-asset-studio.html
+        vectorDrawables.useSupportLibrary = true
 
-		testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
+        testInstrumentationRunner 'android.support.test.runner.AndroidJUnitRunner'
 
-		applicationVariants.all { variant ->
-			variant.outputs.each { output ->
-				def file = output.outputFile
-				def fileName = 'starter-app-v' + versioning.name + '-c' + versioning.code + '.apk'
-				output.outputFile = new File(file.parentFile, fileName)
-			}
-		}
-	}
-	buildTypes {
-		debug {
-			versionNameSuffix ' build'
-			minifyEnabled false
-		}
-		release {
-			zipAlignEnabled true
-			minifyEnabled true
-			proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-		}
-	}
-	testOptions {
-		unitTests.returnDefaultValues = true
-	}
-	lintOptions {
-		abortOnError false
-	}
-	dataBinding {
-		enabled = true
-	}
+        applicationVariants.all { variant ->
+            variant.outputs.each { output ->
+                def file = output.outputFile
+                def fileName = 'starter-app-v' + versioning.name + '-c' + versioning.code + '.apk'
+                output.outputFile = new File(file.parentFile, fileName)
+            }
+        }
+    }
+    buildTypes {
+        debug {
+            versionNameSuffix ' build'
+            minifyEnabled false
+        }
+        release {
+            zipAlignEnabled true
+            minifyEnabled true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    testOptions {
+        unitTests.returnDefaultValues = true
+    }
+    lintOptions {
+        abortOnError false
+    }
+    dataBinding {
+        enabled = true
+    }
 }
 
 dependencies {
-	compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(dir: 'libs', include: ['*.jar'])
 
-	// Test
-	androidTestCompile supportDependencies.annotations
-	androidTestCompile 'com.android.support.test:runner:0.5'
-	androidTestCompile 'com.android.support.test:rules:0.5'
-	androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
-		exclude group: 'com.android.support', module: 'support-annotations'
-	})
-	testCompile 'org.robolectric:robolectric:3.1.2'
-	testCompile 'junit:junit:4.12'
-	testCompile 'org.mockito:mockito-core:2.7.22'
+    // Test
+    androidTestCompile supportDependencies.annotations
+    androidTestCompile 'com.android.support.test:runner:0.5'
+    androidTestCompile 'com.android.support.test:rules:0.5'
+    androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
+        exclude group: 'com.android.support', module: 'support-annotations'
+    })
+    testCompile 'org.robolectric:robolectric:3.1.2'
+    testCompile 'junit:junit:4.12'
+    testCompile 'org.mockito:mockito-core:2.7.22'
 
-	// Support Libraries
-	compile supportDependencies.constraintLayout
-	compile supportDependencies.appcompat
-	compile supportDependencies.cardview
-	compile supportDependencies.support_v13
-	compile supportDependencies.preference_v7
-	compile supportDependencies.preference_v14
-	compile supportDependencies.vectorDrawable
-	compile (supportDependencies.design) {
-		exclude module: 'support-v4'
-		exclude module: 'support-annotations'
-	}
-	compile (supportDependencies.recyclerview) {
-		exclude module: 'support-v4';
-		exclude module: 'support-annotations'
-	}
+    // Support Libraries
+    compile supportDependencies.constraintLayout
+    compile supportDependencies.appcompat
+    compile supportDependencies.cardview
+    compile supportDependencies.support_v13
+    compile supportDependencies.preference_v7
+    compile supportDependencies.preference_v14
+    compile supportDependencies.vectorDrawable
+    compile(supportDependencies.design) {
+        exclude module: 'support-v4'
+        exclude module: 'support-annotations'
+    }
+    compile(supportDependencies.recyclerview) {
+        exclude module: 'support-v4';
+        exclude module: 'support-annotations'
+    }
 
-	// Flexible Adapter - https://github.com/davideas/FlexibleAdapter
-	compile libraries.flexibleAdapter
+    // Flexible Adapter - https://github.com/davideas/FlexibleAdapter
+    compile libraries.flexibleAdapter
 
-	// Firebase
-	compile libraries.firebaseConfig
-	compile libraries.firebaseMessaging
+    // Firebase
+    compile libraries.firebaseConfig
+    compile libraries.firebaseMessaging
 
-	// Google Maps - https://developers.google.com/maps/documentation/android-api/
-	compile libraries.googleMaps
+    // Google Maps - https://developers.google.com/maps/documentation/android-api/
+    compile libraries.googleMaps
 
-	// GSon, Retrofit and OkHttp
-	compile libraries.gson
-	compile libraries.gsonConverter
-	compile libraries.retrofit
-	compile libraries.okhttp_logging
+    // GSon, Retrofit and OkHttp
+    compile libraries.gson
+    compile libraries.gsonConverter
+    compile libraries.retrofit
+    compile libraries.okhttp_logging
 
-	// Timber (logger)
-	compile libraries.timber
+    // Timber (logger)
+    compile libraries.timber
 
-	// Glide (Image Loader & Caching)
-	compile libraries.glide
-	//annotationProcessor libraries.glideCompiler
+    // Glide (Image Loader & Caching)
+    compile libraries.glide
+    //annotationProcessor libraries.glideCompiler
 
-	// Butter Knife (View Injector)
-	compile	libraries.butterKnife
-	annotationProcessor libraries.butterKnifeCompiler
+    // Butter Knife (View Injector) - https://github.com/JakeWharton/butterknife
+    compile libraries.butterKnife
+    annotationProcessor libraries.butterKnifeCompiler
 
-	// UI Widgets
-	compile widgets.flipView
+    // UI Widgets
+    compile widgets.flipView
 
-	// Facebook SDK - https://developers.facebook.com/docs/android
-	compile libraries.facebook_sdk
+    // Iconics - https://github.com/mikepenz/Android-Iconics
+    compile widgets.iconics_core
+    compile widgets.iconics_views
+    compile widgets.iconics_cmd
+
+    // Facebook SDK - https://developers.facebook.com/docs/android
+    compile libraries.facebook_sdk
 
 }
