@@ -15,6 +15,7 @@ import android.preference.PreferenceFragment;
 import android.preference.PreferenceManager;
 import android.preference.PreferenceScreen;
 import android.preference.RingtonePreference;
+import android.support.annotation.StringRes;
 import android.support.v7.app.ActionBar;
 import android.text.TextUtils;
 import android.view.MenuItem;
@@ -130,6 +131,29 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
                         .getString(preference.getKey(), ""));
     }
 
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+    public static class ApplicationBehaviourPreferenceFragment extends BasePreferenceFragment {
+        @Override
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
+            addPreferencesFromResource(R.xml.pref_app_behaviour);
+            setHasOptionsMenu(true);
+
+//            bindPreferenceSummaryToValue(findPreference("key_close_app_at_exit"));
+//            bindPreferenceSummaryToValue(findPreference("key_close_smart"));
+        }
+
+        @Override
+        protected int getTitle() {
+            return R.string.pref_title_app_behaviour;
+        }
+
+        @Override
+        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
+            return super.onPreferenceTreeClick(preferenceScreen, preference);
+        }
+    }
+
     /**
      * This fragment shows general preferences only. It is used when the
      * activity is showing a two-pane settings UI.
@@ -151,28 +175,8 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         }
 
         @Override
-        public void onResume() {
-            super.onResume();
-//            ((AppCompatPreferenceActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_header_general);
-        }
-
-        @Override
-        public boolean onPreferenceTreeClick(PreferenceScreen preferenceScreen, Preference preference) {
-            return super.onPreferenceTreeClick(preferenceScreen, preference);
-        }
-    }
-
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
-    public static class ApplicationBehaviourPreferenceFragment extends BasePreferenceFragment {
-        @Override
-        public void onCreate(Bundle savedInstanceState) {
-            super.onCreate(savedInstanceState);
-            addPreferencesFromResource(R.xml.pref_app_behaviour);
-            setHasOptionsMenu(true);
-
-//            ((AppCompatPreferenceActivity) getActivity()).getSupportActionBar().setTitle(R.string.pref_title_app_behaviour);
-//            bindPreferenceSummaryToValue(findPreference("key_close_app_at_exit"));
-//            bindPreferenceSummaryToValue(findPreference("key_close_smart"));
+        protected int getTitle() {
+            return R.string.pref_header_general;
         }
 
         @Override
@@ -198,6 +202,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // per the Android Design guidelines.
             bindPreferenceSummaryToValue(findPreference("notifications_new_message_ringtone"));
         }
+
+        @Override
+        protected int getTitle() {
+            return R.string.pref_header_notifications;
+        }
     }
 
     /**
@@ -217,6 +226,11 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
             // per the Android Design guidelines.
             bindPreferenceSummaryToValue(findPreference("sync_frequency"));
         }
+
+        @Override
+        protected int getTitle() {
+            return R.string.pref_header_data_sync;
+        }
     }
 
     public static abstract class BasePreferenceFragment extends PreferenceFragment {
@@ -224,6 +238,17 @@ public class SettingsActivity extends AppCompatPreferenceActivity {
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
             return super.onOptionsItemSelected(item);
+        }
+
+        @StringRes
+        protected abstract int getTitle();
+
+        @Override
+        public void onResume() {
+            super.onResume();
+            getActivity().setTitle(getTitle());
+//            ((AppCompatPreferenceActivity) getActivity()).getSupportActionBar().setTitle(getTitle());
+
         }
 
     }
