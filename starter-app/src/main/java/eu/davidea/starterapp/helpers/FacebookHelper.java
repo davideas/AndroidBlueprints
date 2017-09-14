@@ -18,8 +18,9 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
+import com.bumptech.glide.request.RequestOptions;
 import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.facebook.AccessToken;
 import com.facebook.AccessTokenTracker;
 import com.facebook.CallbackManager;
@@ -494,26 +495,27 @@ public class FacebookHelper {
         final SimpleTarget<Bitmap> target = new SimpleTarget<Bitmap>() {
 
             @Override
-            public void onLoadFailed(Exception e, Drawable errorDrawable) {
-                super.onLoadFailed(e, errorDrawable);
-                mFacebookLoginResultCallBack.onFacebookLoginImageDownloadFailed();
-
+            public void onResourceReady(Bitmap bitmap, Transition<? super Bitmap> transition) {
+                mUserImage = new BitmapDrawable(activity.getResources(), bitmap);
+                mFacebookLoginResultCallBack.onFacebookLoginSuccess(mLoginResult);
             }
 
             @Override
-            public void onResourceReady(Bitmap resource, GlideAnimation<? super Bitmap> glideAnimation) {
-                mUserImage = new BitmapDrawable(activity.getResources(), resource);
-                mFacebookLoginResultCallBack.onFacebookLoginSuccess(mLoginResult);
+            public void onLoadFailed(@Nullable Drawable errorDrawable) {
+                super.onLoadFailed(errorDrawable);
+                mFacebookLoginResultCallBack.onFacebookLoginImageDownloadFailed();
             }
         };
 
         new Handler(Looper.getMainLooper()).post(new Runnable() {
             @Override
             public void run() {
+                RequestOptions options = new RequestOptions()
+                        .placeholder(R.mipmap.ic_launcher_round);
                 Glide.with(activity.getApplicationContext())
-                        .load(imageUrl)
                         .asBitmap()
-                        .placeholder(R.mipmap.ic_launcher_round)
+                        .apply(options)
+                        .load(imageUrl)
                         .into(target);
             }
         });
