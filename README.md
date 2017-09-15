@@ -11,16 +11,18 @@ So those Apps are also a playground to experiment new frameworks and new feature
 
 # Features
 **Note:** _All features are under deep analysis with continuous development; Features will be added step by step._
-- Ready to use gradle files with [advanced build versioning](https://github.com/moallemi/gradle-advanced-build-version).
-- Gradle scripts for Bintray.
+- Ready to use gradle files with [GrabVer versioning](https://github.com/davideas/GrabVer).
 - Build variants.
+- Common, Utils and Helper classes.
+- [Material Design](https://material.io/). - **On going**
+- Styles and Theme with DayNight. - **On going**
+- [Preferences](https://medium.com/@JakobUlbrich/building-a-settings-screen-for-android-part-1-5959aa49337c). - **On going**
+
+**Not started:**
+- Gradle scripts for Bintray.
 - Architectures: MVP / [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/) with [EventBus](http://greenrobot.org/eventbus/) / [RxAndroid](https://github.com/ReactiveX/RxAndroid).
-- Common and Utils classes.
 - [Adapter](https://github.com/davideas/FlexibleAdapter) for RecyclerView.
-- [Material Design](https://material.io/).
-- Styles and Theme with DayNight.
 - [Adaptive Icon](https://developer.android.com/preview/features/adaptive-icons.html).
-- [Preferences](https://medium.com/@JakobUlbrich/building-a-settings-screen-for-android-part-1-5959aa49337c).
 - [Various UI Widgets from community](https://github.com/davideas?tab=stars) / [Devlight](https://github.com/Devlight).
 - [Animations and Activity transitions](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=transition).
 - Best drawer from community.
