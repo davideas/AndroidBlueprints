@@ -107,7 +107,7 @@ dependencies {
     compile libraries.retrofit
     compile libraries.okhttp_logging
 
-    // Timber (logger)
+    // Timber (Logger) - https://github.com/JakeWharton/timber
     compile libraries.timber
 
     // Glide (Image Loader & Caching) or Facebook Fresco

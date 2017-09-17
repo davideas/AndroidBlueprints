@@ -20,18 +20,28 @@ So those Apps are also a playground to experiment new frameworks and new feature
 
 **Not started:**
 - Gradle scripts for Bintray.
-- Architectures: MVP / [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/) with [EventBus](http://greenrobot.org/eventbus/) / [RxAndroid](https://github.com/ReactiveX/RxAndroid).
-- [Adapter](https://github.com/davideas/FlexibleAdapter) for RecyclerView.
+- Architectures:
+  - Clean Architecture
+  - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
+  - LifecycleOwner and LifecycleObserver
+  - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
+  - [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/)?
+  - [EventBus](http://greenrobot.org/eventbus/)?
 - [Adaptive Icon](https://developer.android.com/preview/features/adaptive-icons.html).
+- [Adapter](https://github.com/davideas/FlexibleAdapter) for RecyclerView.
 - [Various UI Widgets from community](https://github.com/davideas?tab=stars) / [Devlight](https://github.com/Devlight).
 - [Animations and Activity transitions](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=transition).
-- Best drawer from community.
 - Constraints Layouts / [Litho](http://fblitho.com/).
-- [About](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=about) & ReleaseNote libraries.
 - [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
 - [Glide](https://github.com/bumptech/glide) for image loading and caching.
 - [Timber](https://github.com/JakeWharton/timber) for logging.
-- Persistence: Cursor / [Requery](https://github.com/requery/requery/) / [Realm](https://realm.io/docs/java/latest/) / [Firebase](https://firebase.google.com/products/).
+- Best drawer from community.
+- [About](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=about) & ReleaseNote libraries.
+- Persistence:
+  - [Room](https://developer.android.com/topic/libraries/architecture/room.html)
+  - [Firebase](https://firebase.google.com/products/)
+  - [Requery](https://github.com/requery/requery/)?
+  - [Realm](https://realm.io/docs/java/latest/)?
 - View Injector: [ButterKnife](https://github.com/JakeWharton/butterknife).
 - Dependency injector: [Dagger](http://google.github.io/dagger/) / [Toothpick](https://github.com/stephanenicolas/toothpick).
 - Authentication (Firebase Auth / JWT / OAuth2 / Social Networks).
