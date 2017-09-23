@@ -41,8 +41,8 @@ ext {
     ]
 
     // Libraries
-    firebaseVer = "11.2.2"
-    googleMapsVer = "11.2.2"
+    firebaseVer = "11.4.0"
+    googleMapsVer = "11.4.0"
     butterKnifeVer = "8.8.1"
     gsonVer = "2.8.1"
     retrofitVer = "2.3.0"

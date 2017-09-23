@@ -12,7 +12,15 @@ So those Apps are also a playground to experiment new frameworks and new feature
 # Features
 **Note:** _All features are under deep analysis with continuous development; Features will be added step by step._
 - Ready to use gradle files with [GrabVer versioning](https://github.com/davideas/GrabVer).
-- Build variants.
+- Build variants! - **On going**
+- Architectures: - **On going**
+  - Clean Architecture
+  - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
+  - LifecycleOwner and LifecycleObserver
+- Persistence: - **On going**
+  - [Room](https://developer.android.com/topic/libraries/architecture/room.html)
+  - [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
+- [Timber](https://github.com/JakeWharton/timber) for logging.
 - Common, Utils and Helper classes.
 - [Material Design](https://material.io/). - **On going**
 - Styles and Theme with DayNight. - **On going**
@@ -21,9 +29,6 @@ So those Apps are also a playground to experiment new frameworks and new feature
 **Not started:**
 - Gradle scripts for Bintray.
 - Architectures:
-  - Clean Architecture
-  - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
-  - LifecycleOwner and LifecycleObserver
   - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
   - [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/)?
   - [EventBus](http://greenrobot.org/eventbus/)?
@@ -32,13 +37,10 @@ So those Apps are also a playground to experiment new frameworks and new feature
 - [Various UI Widgets from community](https://github.com/davideas?tab=stars) / [Devlight](https://github.com/Devlight).
 - [Animations and Activity transitions](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=transition).
 - Constraints Layouts / [Litho](http://fblitho.com/).
-- [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
 - [Glide](https://github.com/bumptech/glide) for image loading and caching.
-- [Timber](https://github.com/JakeWharton/timber) for logging.
 - Best drawer from community.
 - [About](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=about) & ReleaseNote libraries.
 - Persistence:
-  - [Room](https://developer.android.com/topic/libraries/architecture/room.html)
   - [Firebase](https://firebase.google.com/products/)
   - [Requery](https://github.com/requery/requery/)?
   - [Realm](https://realm.io/docs/java/latest/)?

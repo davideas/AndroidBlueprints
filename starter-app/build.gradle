@@ -25,7 +25,7 @@ android {
 
         android.applicationVariants.all { variant ->
             variant.outputs.all {
-                outputFileName = "avocado-app-${variant.name}-${variant.versionName}-c${versioning.code}.apk"
+                outputFileName = "starter-app-${variant.name}-${variant.versionName}-c${versioning.code}.apk"
             }
         }
     }
@@ -37,13 +37,20 @@ android {
     }
     buildTypes {
         debug {
-            versionNameSuffix ' build'
+            versionNameSuffix ' debug'
             minifyEnabled false
+            buildConfigField 'String', 'API_URL', '"https://10.0.2.2:8443/starter/api/"'
+        }
+        offline {
+            initWith(buildTypes.debug)
+            versionNameSuffix ' offline'
+            buildConfigField 'String', 'API_URL', '""'
         }
         release {
             zipAlignEnabled true
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            buildConfigField 'String', 'API_URL', '"https://api.starter.com/"'
         }
     }
     testOptions {
