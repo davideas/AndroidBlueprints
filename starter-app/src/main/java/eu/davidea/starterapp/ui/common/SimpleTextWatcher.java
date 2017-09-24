@@ -1,4 +1,4 @@
-package eu.davidea.starterapp.common;
+package eu.davidea.starterapp.ui.common;
 
 import android.text.Editable;
 import android.text.TextWatcher;

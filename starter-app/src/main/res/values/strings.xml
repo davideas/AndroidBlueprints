@@ -1,6 +1,7 @@
 <resources>
     <string name="app_name">Starter App</string>
     <string name="title_activity_settings">Settings</string>
+    <string name="hello">Hello %1$s!</string>
 
     <!-- Strings related to Action -->
     <string name="action_delete">Delete</string>

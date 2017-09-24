@@ -1,4 +1,4 @@
-package eu.davidea.starterapp.helpers;
+package eu.davidea.starterapp.ui.helpers;
 
 import android.app.Activity;
 import android.content.SharedPreferences;

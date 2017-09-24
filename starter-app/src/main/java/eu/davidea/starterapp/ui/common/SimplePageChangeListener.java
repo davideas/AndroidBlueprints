@@ -1,4 +1,4 @@
-package eu.davidea.starterapp.common;
+package eu.davidea.starterapp.ui.common;
 
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;

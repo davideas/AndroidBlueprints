@@ -1,5 +1,7 @@
 package eu.davidea.starterapp.ui;
 
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -10,17 +12,59 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.TextView;
 
+import javax.inject.Inject;
+
+import eu.davidea.starterapp.MyApplication;
 import eu.davidea.starterapp.R;
+import eu.davidea.starterapp.viewmodels.user.AnonymousUser;
+import eu.davidea.starterapp.viewmodels.user.UserViewModel;
+import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
 
+    private final String TAG = getClass().getSimpleName();
+
+    @Inject
+    ViewModelProvider.Factory viewModelFactory;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Logger
+        Timber.tag(TAG);
+        Timber.d("onCreate");
+
+        // Inject dependencies
+        MyApplication application = (MyApplication) getApplication();
+        application.getApplicationComponent()
+                .inject(this);
+
+        // Views
+        TextView text = findViewById(R.id.hello_message);
+        text.setText(getString(R.string.hello, "World"));
+
+        // Load User
+        UserViewModel model = ViewModelProviders
+                .of(this, viewModelFactory)
+                .get(UserViewModel.class);
+        model.getUser().observe(this, resource -> {
+            assert resource != null;
+            if (resource.data != null) {
+                Timber.d("Result from UserViewModel status=%s, data=%s",
+                        resource.status, resource.data.getName());
+                text.setText(getString(R.string.hello, resource.data.getName()));
+            } else {
+                Timber.w("Empty Result from UserViewModel status=%s", resource.status);
+                Timber.e(resource.message);
+            }
+        });
+        // Offline Flavor returns an AnonymousUser
+        model.login(AnonymousUser.ANONYMOUS, "password");
     }
 
     @Override

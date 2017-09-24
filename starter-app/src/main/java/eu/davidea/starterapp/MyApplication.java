@@ -5,18 +5,50 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
+import eu.davidea.starterapp.infrastructure.injection.ApiModule;
+import eu.davidea.starterapp.infrastructure.injection.ApplicationComponent;
+import eu.davidea.starterapp.infrastructure.injection.ApplicationModule;
+import eu.davidea.starterapp.infrastructure.injection.DaggerApplicationComponent;
+import timber.log.Timber;
+
 public class MyApplication extends Application {
 
-    private static MyApplication myApp;
+    private ApplicationComponent applicationComponent;
 
-    public MyApplication() {
-        myApp = this;
+
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        Log.wtf("MyApplication", "onCreate called!");
+        createLogger();
+        createApplicationComponent();
     }
 
-    public static MyApplication getInstance() {
-        //The instance is never null.
-        //It's created when the App starts.
-        return myApp;
+    /**
+     * Timber Logger
+     */
+    private void createLogger() {
+        // Logger & CrashReporting
+        if (BuildConfig.DEBUG) {
+            Timber.plant(new Timber.DebugTree());
+        } else {
+            Timber.plant(new CrashReportingTree());
+        }
+    }
+
+    /**
+     * Dagger2 initialization
+     */
+    private void createApplicationComponent() {
+        applicationComponent = DaggerApplicationComponent
+                .builder()
+                .applicationModule(new ApplicationModule(this))
+                .apiModule(new ApiModule())
+                .build();
+    }
+
+    public ApplicationComponent getApplicationComponent() {
+        return applicationComponent;
     }
 
     public String getVersionName() {
@@ -38,17 +70,50 @@ public class MyApplication extends Application {
     }
 
     @Override
-    public void onCreate() {
-        Log.wtf("MyApplication", "onCreate called!");
-        //TODO: Put here strategic initializations
-        super.onCreate();
-    }
-
-    @Override
     public void onLowMemory() {
         Log.wtf("MyApplication", "onLowMemory called!");
         //TODO: onLowMemory save DB now and try to synchronize
         super.onLowMemory();
+    }
+
+    /**
+     * A tree which logs important information for crash reporting.
+     */
+    private static class CrashReportingTree extends Timber.Tree {
+        @Override
+        protected void log(int priority, String tag, String message, Throwable throwable) {
+            if (priority == Log.VERBOSE || priority == Log.DEBUG) {
+                return;
+            }
+
+            FakeCrashLibrary.log(priority, tag, message);
+
+            if (throwable != null) {
+                if (priority == Log.ERROR) {
+                    FakeCrashLibrary.logError(throwable);
+                } else if (priority == Log.WARN) {
+                    FakeCrashLibrary.logWarning(throwable);
+                }
+            }
+        }
+    }
+
+    /* Not a real crash reporting library! */
+    static final class FakeCrashLibrary {
+        static void log(int priority, String tag, String message) {
+            // TODO add log entry to circular buffer.
+        }
+
+        static void logWarning(Throwable t) {
+            // TODO report non-fatal warning.
+        }
+
+        static void logError(Throwable t) {
+            // TODO report non-fatal error.
+        }
+
+        private FakeCrashLibrary() {
+        }
     }
 
 }

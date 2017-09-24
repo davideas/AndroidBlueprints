@@ -27,55 +27,56 @@ ext {
     supportVer = "26.1.0"
     constraintVer = "1.1.0-beta1"
     supportDependencies = [
-            design          : "com.android.support:design:${supportVer}",
-            recyclerView    : "com.android.support:recyclerview-v7:${supportVer}",
-            cardView        : "com.android.support:cardview-v7:${supportVer}",
-            appcompat       : "com.android.support:appcompat-v7:${supportVer}",
-            customTabs      : "com.android.support:customtabs:${supportVer}",
-            support_v13     : "com.android.support:support-v13:${supportVer}",
-            annotations     : "com.android.support:support-annotations:${supportVer}",
-            vectorDrawable  : "com.android.support:support-vector-drawable:${supportVer}",
-            preference_v7   : "com.android.support:preference-v7:${supportVer}",
-            preference_v14  : "com.android.support:preference-v14:${supportVer}",
-            constraintLayout: "com.android.support.constraint:constraint-layout:${constraintVer}",
+            design           : "com.android.support:design:${supportVer}",
+            recyclerView     : "com.android.support:recyclerview-v7:${supportVer}",
+            cardView         : "com.android.support:cardview-v7:${supportVer}",
+            appcompat        : "com.android.support:appcompat-v7:${supportVer}",
+            customTabs       : "com.android.support:customtabs:${supportVer}",
+            support_v13      : "com.android.support:support-v13:${supportVer}",
+            annotations      : "com.android.support:support-annotations:${supportVer}",
+            vectorDrawable   : "com.android.support:support-vector-drawable:${supportVer}",
+            preference_v7    : "com.android.support:preference-v7:${supportVer}",
+            preference_v14   : "com.android.support:preference-v14:${supportVer}",
+            constraintLayout : "com.android.support.constraint:constraint-layout:${constraintVer}",
     ]
 
     // Libraries
     firebaseVer = "11.4.0"
     googleMapsVer = "11.4.0"
-    butterKnifeVer = "8.8.1"
-    gsonVer = "2.8.1"
-    retrofitVer = "2.3.0"
-    timberVer = "4.5.1"
-    okHttpVer = "3.9.0"
-    glideVer = "4.1.1"
-    frescoVer = '1.5.0'
-    flexibleAdapterVer = "5.0.0-rc2"
-    facebookSdkVer = "4.25.0"
     rxAndroidVer = "2.0.1"
-    rxJavaVer = "2.1.3"
     daggerVer = "2.11"
+    gsonVer = "2.8.1"
+    butterKnifeVer = "8.8.1"
+    timberVer = "4.5.1"
+    retrofitVer = "2.3.0"
+    okHttpVer = "3.9.0"
+    rxJavaVer = "2.1.3"
+    glideVer = "4.1.1"
+    frescoVer = "1.5.0"
+    facebookSdkVer = "4.25.0"
+    flexibleAdapterVer = "5.0.0-SNAPSHOT"
     libraries = [
-            firebaseConfig      : "com.google.firebase:firebase-config:${firebaseVer}",
-            firebaseMessaging   : "com.google.firebase:firebase-messaging:${firebaseVer}",
-            googleMaps          : "com.google.android.gms:play-services-maps:${googleMapsVer}",
-            butterKnife         : "com.jakewharton:butterknife:${butterKnifeVer}",
-            butterKnifeCompiler : "com.jakewharton:butterknife-compiler:${butterKnifeVer}",
-            gson                : "com.google.code.gson:gson:${gsonVer}",
-            gsonConverter       : "com.squareup.retrofit2:converter-gson:${retrofitVer}",
-            retrofit            : "com.squareup.retrofit2:retrofit:${retrofitVer}",
-            timber              : "com.jakewharton.timber:timber:${timberVer}",
-            okhttpLogging       : "com.squareup.okhttp3:logging-interceptor:${okHttpVer}",
-            glide               : "com.github.bumptech.glide:glide:${glideVer}",
-            glideCompiler       : "com.github.bumptech.glide:compiler:${glideVer}",
-            fresco              : "com.facebook.fresco:fresco:${frescoVer}",
-            flexibleAdapter     : "eu.davidea:flexible-adapter:${flexibleAdapterVer}",
-            facebookSdk         : "com.facebook.android:facebook-android-sdk:${facebookSdkVer}",
-            rxAndroid           : "io.reactivex.rxjava2:rxandroid:${rxAndroidVer}",
-            rxJava              : "io.reactivex.rxjava2:rxjava:${rxJavaVer}",
-            dagger              : "com.google.dagger:dagger:${daggerVer}",
-            daggerAndroid       : "com.google.dagger:dagger-android-support:${daggerVer}",
-            daggerCompiler      : "com.google.dagger:dagger-compiler:${daggerVer}"
+            firebaseConfig        : "com.google.firebase:firebase-config:${firebaseVer}",
+            firebaseMessaging     : "com.google.firebase:firebase-messaging:${firebaseVer}",
+            googleMaps            : "com.google.android.gms:play-services-maps:${googleMapsVer}",
+            dagger                : "com.google.dagger:dagger:${daggerVer}",
+            daggerAndroid         : "com.google.dagger:dagger-android-support:${daggerVer}",
+            daggerCompiler        : "com.google.dagger:dagger-compiler:${daggerVer}",
+            gson                  : "com.google.code.gson:gson:${gsonVer}",
+            butterKnife           : "com.jakewharton:butterknife:${butterKnifeVer}",
+            butterKnifeCompiler   : "com.jakewharton:butterknife-compiler:${butterKnifeVer}",
+            timber                : "com.jakewharton.timber:timber:${timberVer}",
+            retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVer}",
+            retrofitMock          : "com.squareup.retrofit2:retrofit-mock:${retrofitVer}",
+            retrofitGsonConverter : "com.squareup.retrofit2:converter-gson:${retrofitVer}",
+            okhttpLogging         : "com.squareup.okhttp3:logging-interceptor:${okHttpVer}",
+            rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVer}",
+            rxJava                : "io.reactivex.rxjava2:rxjava:${rxJavaVer}",
+            glide                 : "com.github.bumptech.glide:glide:${glideVer}",
+            glideCompiler         : "com.github.bumptech.glide:compiler:${glideVer}",
+            fresco                : "com.facebook.fresco:fresco:${frescoVer}",
+            facebookSdk           : "com.facebook.android:facebook-android-sdk:${facebookSdkVer}",
+            flexibleAdapter       : "eu.davidea:flexible-adapter:${flexibleAdapterVer}"
     ]
 
     // Widgets
@@ -83,10 +84,10 @@ ext {
     iconicsVer = "2.9.3@aar"
     iconicsCmdVer = "1.9.32.2@aar"
     widgets = [
-            flipView            : "eu.davidea:flipview:${flipViewVer}",
-            iconicsCore         : "com.mikepenz:iconics-core:${iconicsVer}",
-            iconicsViews        : "com.mikepenz:iconics-views:${iconicsVer}",
-            iconicsCommunity    : "com.mikepenz:community-material-typeface:${iconicsCmdVer}",
+            flipView         : "eu.davidea:flipview:${flipViewVer}",
+            iconicsCore      : "com.mikepenz:iconics-core:${iconicsVer}",
+            iconicsViews     : "com.mikepenz:iconics-views:${iconicsVer}",
+            iconicsCommunity : "com.mikepenz:community-material-typeface:${iconicsCmdVer}",
     ]
 
 }

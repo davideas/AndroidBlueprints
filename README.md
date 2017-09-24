@@ -7,12 +7,12 @@ Instead of configuring everything from scratch we can just import or take inspir
 
 > Computer Science is experimentation, automation and engineering (...).
 
-So those Apps are also a playground to experiment new frameworks and new features.
+So, this App is also a playground to experiment new frameworks and new features.
 
 # Features
 **Note:** _All features are under deep analysis with continuous development; Features will be added step by step._
 - Ready to use gradle files with [GrabVer versioning](https://github.com/davideas/GrabVer).
-- Build variants! - **On going**
+- Build variants and flavors: _Debug_, _Offline_ and _Release_, to test please use _Offline_.
 - Architectures: - **On going**
   - Clean Architecture
   - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
@@ -21,7 +21,7 @@ So those Apps are also a playground to experiment new frameworks and new feature
   - [Room](https://developer.android.com/topic/libraries/architecture/room.html)
   - [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
 - [Timber](https://github.com/JakeWharton/timber) for logging.
-- Common, Utils and Helper classes.
+- Common, Utils and Helper classes. - **On going**
 - [Material Design](https://material.io/). - **On going**
 - Styles and Theme with DayNight. - **On going**
 - [Preferences](https://medium.com/@JakobUlbrich/building-a-settings-screen-for-android-part-1-5959aa49337c). - **On going**
