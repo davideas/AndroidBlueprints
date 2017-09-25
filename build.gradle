@@ -69,6 +69,7 @@ ext {
             retrofit              : "com.squareup.retrofit2:retrofit:${retrofitVer}",
             retrofitMock          : "com.squareup.retrofit2:retrofit-mock:${retrofitVer}",
             retrofitGsonConverter : "com.squareup.retrofit2:converter-gson:${retrofitVer}",
+            retrofitRx            : "com.squareup.retrofit2:adapter-rxjava2:${retrofitVer}",
             okhttpLogging         : "com.squareup.okhttp3:logging-interceptor:${okHttpVer}",
             rxAndroid             : "io.reactivex.rxjava2:rxandroid:${rxAndroidVer}",
             rxJava                : "io.reactivex.rxjava2:rxjava:${rxJavaVer}",

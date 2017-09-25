@@ -17,6 +17,7 @@ import eu.davidea.starterapp.persistence.api.network.LiveDataCallAdapterFactory;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import retrofit2.mock.BehaviorDelegate;
 import retrofit2.mock.MockRetrofit;
@@ -38,7 +39,8 @@ public class ApiModule {
         behavior.setErrorPercent(2);
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
         return new MockRetrofit.Builder(retrofit)

@@ -17,6 +17,7 @@ So, this App is also a playground to experiment new frameworks and new features.
   - Clean Architecture
   - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
   - LifecycleOwner and LifecycleObserver
+  - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
 - Persistence: - **On going**
   - [Room](https://developer.android.com/topic/libraries/architecture/room.html)
   - [Retrofit](http://square.github.io/retrofit/) + [Gson](https://github.com/google/gson).
@@ -29,7 +30,6 @@ So, this App is also a playground to experiment new frameworks and new features.
 **Not started:**
 - Gradle scripts for Bintray.
 - Architectures:
-  - [RxAndroid](https://github.com/ReactiveX/RxAndroid)
   - [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/)?
   - [EventBus](http://greenrobot.org/eventbus/)?
 - [Adaptive Icon](https://developer.android.com/preview/features/adaptive-icons.html).

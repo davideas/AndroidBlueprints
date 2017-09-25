@@ -35,6 +35,12 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    // Specifies a flavor dimension
+    flavorDimensions "device"
+    productFlavors {
+        smartphone {
+        }
+    }
     buildTypes {
         debug {
             minifyEnabled false
@@ -42,7 +48,7 @@ android {
             buildConfigField 'String', 'API_URL', '"https://10.0.2.2:8443/starter/api/"'
         }
         offline {
-            initWith(buildTypes.debug)
+            initWith buildTypes.debug
             versionNameSuffix ' offline'
         }
         release {
@@ -54,8 +60,8 @@ android {
     }
     testOptions {
         unitTests {
-            returnDefaultValues = true
-            includeAndroidResources = true
+            returnDefaultValues true
+            includeAndroidResources true
         }
     }
     lintOptions {
@@ -116,9 +122,10 @@ dependencies {
     // GSon, Retrofit and OkHttp
     implementation libraries.gson
     implementation libraries.retrofit
-    implementation libraries.retrofitMock
     implementation libraries.retrofitGsonConverter
     implementation libraries.okhttpLogging
+    implementation libraries.retrofitRx
+    offlineImplementation libraries.retrofitMock
 
     // Firebase
     implementation libraries.firebaseConfig

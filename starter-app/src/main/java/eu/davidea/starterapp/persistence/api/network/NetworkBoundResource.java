@@ -29,7 +29,7 @@ import eu.davidea.starterapp.infrastructure.AppExecutors;
  * <p>You can read more about it in the <a href="https://developer.android.com/arch">Architecture
  * Guide</a>.</p>
  *
- * @param <ResultType> The SQLLite type entity
+ * @param <ResultType> The SQLite type entity
  * @param <RequestType> The Network type entity
  */
 public abstract class NetworkBoundResource<ResultType, RequestType> {

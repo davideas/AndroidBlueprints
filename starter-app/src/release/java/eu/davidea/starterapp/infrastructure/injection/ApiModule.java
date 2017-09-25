@@ -36,7 +36,7 @@ public class ApiModule {
         return new Retrofit.Builder()
                 .baseUrl(BuildConfig.API_URL)
                 .addConverterFactory(gson)
-                .addCallAdapterFactory(new LiveDataCallAdapterFactory())
+                .addCallAdapterFactory(LiveDataCallAdapterFactory.create())
                 .client(okHttpClient)
                 .build();
     }
