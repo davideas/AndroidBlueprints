@@ -3,7 +3,7 @@ package eu.davidea.starterapp.persistence.api;
 import java.util.List;
 
 import eu.davidea.starterapp.viewmodels.message.Message;
-import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
@@ -19,12 +19,12 @@ public interface MessageApi {
     String THREAD_URL = "/v1/threads";
 
     @GET(THREAD_URL + "/{threadId}")
-    Flowable<List<Message>> getConversation(@Path("threadId") Long threadId,
-                                            @Query("messageId") Long messageId);
+    Observable<List<Message>> getConversation(@Path("threadId") Long threadId,
+                                              @Query("messageId") Long messageId);
 
     @GET(THREAD_URL + "/{threadId}/{messageId}")
-    Flowable<Message> getMessage(@Path("threadId") Long threadId,
-                                 @Path("messageId") Long messageId);
+    Observable<Message> getMessage(@Path("threadId") Long threadId,
+                                   @Path("messageId") Long messageId);
 
     @POST(THREAD_URL)
     void sendMessage(@Body Message message);

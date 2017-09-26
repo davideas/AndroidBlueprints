@@ -15,11 +15,10 @@ public class MyApplication extends Application {
 
     private ApplicationComponent applicationComponent;
 
-
     @Override
     public void onCreate() {
         super.onCreate();
-        Log.wtf("MyApplication", "onCreate called!");
+        Log.d("MyApplication", "onCreate called!");
         createLogger();
         createApplicationComponent();
     }

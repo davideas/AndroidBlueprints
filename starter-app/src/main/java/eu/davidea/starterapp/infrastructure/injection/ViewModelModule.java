@@ -6,6 +6,7 @@ import android.arch.lifecycle.ViewModelProvider;
 import dagger.Binds;
 import dagger.Module;
 import dagger.multibindings.IntoMap;
+import eu.davidea.starterapp.viewmodels.message.MessageViewModel;
 import eu.davidea.starterapp.viewmodels.user.UserViewModel;
 
 @Module
@@ -15,6 +16,11 @@ public abstract class ViewModelModule {
     @IntoMap
     @ViewModelKey(UserViewModel.class)
     abstract ViewModel bindUserViewModel(UserViewModel viewModel);
+
+    @Binds
+    @IntoMap
+    @ViewModelKey(MessageViewModel.class)
+    abstract ViewModel bindMessageViewModel(MessageViewModel viewModel);
 
     @Binds
     abstract ViewModelProvider.Factory bindViewModelFactory(ViewModelFactory factory);

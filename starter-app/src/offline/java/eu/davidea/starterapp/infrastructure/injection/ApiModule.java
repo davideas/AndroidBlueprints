@@ -5,15 +5,19 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import eu.davidea.starterapp.BuildConfig;
+import eu.davidea.starterapp.persistence.api.MessageApi;
+import eu.davidea.starterapp.persistence.api.OfflineMessageApi;
 import eu.davidea.starterapp.persistence.api.OfflineUserApi;
 import eu.davidea.starterapp.persistence.api.UserApi;
 import eu.davidea.starterapp.persistence.api.network.AuthInterceptor;
 import eu.davidea.starterapp.persistence.api.network.LiveDataCallAdapterFactory;
+import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;
@@ -72,11 +76,28 @@ public class ApiModule {
         return new AuthInterceptor();
     }
 
+    @Provides @Named("activity")
+    public CompositeDisposable provideCompositeDisposable(){
+        return new CompositeDisposable();
+    }
+
+    @Provides @Named("vm")
+    public CompositeDisposable provideVMCompositeDisposable(){
+        return new CompositeDisposable();
+    }
+
     @Provides
     @Singleton
     UserApi provideUserApi(MockRetrofit mockRetrofit) {
         BehaviorDelegate<UserApi> delegate = mockRetrofit.create(UserApi.class);
         return new OfflineUserApi(delegate);
+    }
+
+    @Provides
+    @Singleton
+    MessageApi provideMessageApi(MockRetrofit mockRetrofit) {
+        BehaviorDelegate<MessageApi> delegate = mockRetrofit.create(MessageApi.class);
+        return new OfflineMessageApi(delegate);
     }
 
 }
