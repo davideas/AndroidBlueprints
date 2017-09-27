@@ -11,6 +11,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import eu.davidea.starterapp.BuildConfig;
+import eu.davidea.starterapp.persistence.api.MessageApi;
 import eu.davidea.starterapp.persistence.api.UserApi;
 import eu.davidea.starterapp.persistence.api.network.AuthInterceptor;
 import eu.davidea.starterapp.persistence.api.network.LiveDataCallAdapterFactory;
@@ -85,6 +86,12 @@ public class ApiModule {
     @Singleton
     UserApi provideUserApi(Retrofit retrofit) {
         return retrofit.create(UserApi.class);
+    }
+
+    @Provides
+    @Singleton
+    MessageApi provideMessageApi(Retrofit retrofit) {
+        return retrofit.create(MessageApi.class);
     }
 
 }

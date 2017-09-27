@@ -5,12 +5,14 @@ import android.arch.persistence.room.Room;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
+import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
 import eu.davidea.starterapp.MyApplication;
 import eu.davidea.starterapp.persistence.db.StarterDatabase;
+import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
 /**
@@ -46,9 +48,25 @@ public class ApplicationModule {
         return PreferenceManager.getDefaultSharedPreferences(application);
     }
 
+    @Provides @Named("activity")
+    public CompositeDisposable provideCompositeDisposable(){
+        return new CompositeDisposable();
+    }
+
+    @Provides @Named("vm")
+    public CompositeDisposable provideVMCompositeDisposable(){
+        return new CompositeDisposable();
+    }
+
     @Provides
     @Singleton
-    MyApplication provideApplication() {
+    MyApplication provideMyApplication() {
+        return application;
+    }
+
+    @Provides
+    @Singleton
+    Application provideApplication() {
         return application;
     }
 

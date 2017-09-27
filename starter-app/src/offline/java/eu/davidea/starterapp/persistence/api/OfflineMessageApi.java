@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import eu.davidea.starterapp.viewmodels.message.Message;
+import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import retrofit2.mock.BehaviorDelegate;
 import timber.log.Timber;
@@ -24,12 +25,11 @@ public class OfflineMessageApi implements MessageApi {
         this.delegate = delegate;
     }
 
-
     @Override
-    public Observable<List<Message>> getConversation(Long threadId, Long messageId) {
-        Timber.d("Generating Conversation %s %S", threadId, messageId);
+    public Flowable<List<Message>> getConversation(Long threadId, Long messageId) {
         return delegate.returningResponse(initMessages(threadId, messageId))
-                .getConversation(threadId, messageId);
+                .getConversation(threadId, messageId)
+                .doOnSubscribe((subscription -> Timber.d("Generating Conversation %s %S", threadId, messageId)));
     }
 
     @Override

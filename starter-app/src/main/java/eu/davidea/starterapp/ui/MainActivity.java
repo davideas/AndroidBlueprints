@@ -22,9 +22,7 @@ import eu.davidea.starterapp.R;
 import eu.davidea.starterapp.viewmodels.message.MessageViewModel;
 import eu.davidea.starterapp.viewmodels.user.AnonymousUser;
 import eu.davidea.starterapp.viewmodels.user.UserViewModel;
-import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
-import io.reactivex.schedulers.Schedulers;
 import timber.log.Timber;
 
 public class MainActivity extends AppCompatActivity {
@@ -35,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
     ViewModelProvider.Factory viewModelFactory;
     @Inject @Named("activity")
     CompositeDisposable compositeDisposable;
+
+    MessageViewModel messageViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,21 +73,12 @@ public class MainActivity extends AppCompatActivity {
         // Offline Flavor returns an AnonymousUser
         model.login(AnonymousUser.ANONYMOUS, "password");
 
-        MessageViewModel messageViewModel = ViewModelProviders
-                .of(this, viewModelFactory)
-                .get(MessageViewModel.class);
-        messageViewModel.loadConversation(1L, 1L);
-    }
 
-    @Override
-    protected void onStart() {
-        super.onStart();
-        MessageViewModel messageViewModel = ViewModelProviders
+        messageViewModel = ViewModelProviders
                 .of(this, viewModelFactory)
                 .get(MessageViewModel.class);
+
         compositeDisposable.add(messageViewModel.getConversation(1L, 1L)
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(messages -> {
                     if (messages != null && !messages.isEmpty()) {
                         Timber.i("Loaded %s messages", messages.size());
@@ -95,6 +86,8 @@ public class MainActivity extends AppCompatActivity {
                         Timber.i("No message found");
                     }
                 }, throwable -> Timber.e(throwable, "Exception getting messages")));
+
+        messageViewModel.loadConversation(1L, 1L);
     }
 
     @Override

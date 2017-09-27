@@ -76,16 +76,6 @@ public class ApiModule {
         return new AuthInterceptor();
     }
 
-    @Provides @Named("activity")
-    public CompositeDisposable provideCompositeDisposable(){
-        return new CompositeDisposable();
-    }
-
-    @Provides @Named("vm")
-    public CompositeDisposable provideVMCompositeDisposable(){
-        return new CompositeDisposable();
-    }
-
     @Provides
     @Singleton
     UserApi provideUserApi(MockRetrofit mockRetrofit) {
