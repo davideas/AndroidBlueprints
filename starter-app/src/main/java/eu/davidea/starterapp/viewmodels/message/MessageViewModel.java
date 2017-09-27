@@ -8,9 +8,9 @@ import javax.inject.Inject;
 import javax.inject.Named;
 
 import eu.davidea.starterapp.persistence.repositories.MessageRepository;
-import io.reactivex.Flowable;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 /**
@@ -34,7 +34,7 @@ public class MessageViewModel extends ViewModel {
         this.compositeDisposable = compositeDisposable;
     }
 
-    public Flowable<List<Message>> getConversation(Long threadId, Long messageId) {
+    public Subject<List<Message>> getConversation(Long threadId, Long messageId) {
         return repository.getConversation(threadId, messageId);
     }
 
