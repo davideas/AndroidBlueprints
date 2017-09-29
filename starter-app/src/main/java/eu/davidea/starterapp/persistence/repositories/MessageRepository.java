@@ -48,28 +48,30 @@ public class MessageRepository {
                     return messages;
                 });
 
-        return dbFlowable
-                .subscribeOn(Schedulers.computation())
-                .flatMap((messages) -> {
-                    if (!messages.isEmpty()) {
-                        return Flowable.just(messages);
-                    } else {
-                        return apiFlowable;
-                    }
-                })
-                .subscribe((messages) -> {
-                    subject.onNext(messages);
-                    subject.onComplete();
-                });
-
 //        return dbFlowable
 //                .subscribeOn(Schedulers.computation())
-//                .filter(messages -> !messages.isEmpty())
-//                .switchIfEmpty(apiFlowable)
+//                .flatMap((messages) -> {
+//                    if (!messages.isEmpty()) {
+//                        return Flowable.just(messages);
+//                    } else {
+//                        return apiFlowable;
+//                    }
+//                })
 //                .subscribe((messages) -> {
 //                    subject.onNext(messages);
 //                    subject.onComplete();
 //                });
+
+        // https://stackoverflow.com/questions/45549827/how-to-use-switchifempty
+        return dbFlowable
+                .subscribeOn(Schedulers.computation())
+                .take(1)
+                .filter(messages -> !messages.isEmpty())
+                .switchIfEmpty(apiFlowable)
+                .subscribe((messages) -> {
+                    subject.onNext(messages);
+                    subject.onComplete();
+                });
     }
 
     private void saveMessages(List<Message> messages) {
