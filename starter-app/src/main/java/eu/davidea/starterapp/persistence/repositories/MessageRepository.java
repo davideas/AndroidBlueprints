@@ -49,12 +49,27 @@ public class MessageRepository {
                 });
 
         return dbFlowable
-                .filter(messages -> !messages.isEmpty())
-                .switchIfEmpty(apiFlowable)
+                .subscribeOn(Schedulers.computation())
+                .flatMap((messages) -> {
+                    if (!messages.isEmpty()) {
+                        return Flowable.just(messages);
+                    } else {
+                        return apiFlowable;
+                    }
+                })
                 .subscribe((messages) -> {
                     subject.onNext(messages);
                     subject.onComplete();
                 });
+
+//        return dbFlowable
+//                .subscribeOn(Schedulers.computation())
+//                .filter(messages -> !messages.isEmpty())
+//                .switchIfEmpty(apiFlowable)
+//                .subscribe((messages) -> {
+//                    subject.onNext(messages);
+//                    subject.onComplete();
+//                });
     }
 
     private void saveMessages(List<Message> messages) {

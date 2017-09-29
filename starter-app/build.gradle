@@ -58,6 +58,7 @@ android {
             buildConfigField 'String', 'API_URL', '"https://api.starter.com/"'
         }
     }
+    testBuildType "offline"
     testOptions {
         unitTests {
             returnDefaultValues true
