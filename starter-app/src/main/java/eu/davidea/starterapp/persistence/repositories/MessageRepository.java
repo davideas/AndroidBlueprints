@@ -10,10 +10,7 @@ import eu.davidea.starterapp.persistence.db.MessageDao;
 import eu.davidea.starterapp.persistence.db.StarterDatabase;
 import eu.davidea.starterapp.viewmodels.message.Message;
 import io.reactivex.Flowable;
-import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
-import io.reactivex.subjects.PublishSubject;
-import io.reactivex.subjects.Subject;
 import timber.log.Timber;
 
 /**
@@ -25,7 +22,6 @@ public class MessageRepository {
     private MessageApi api;
     private MessageDao messageDao;
     private AppExecutors executors;
-    Subject<List<Message>> subject = PublishSubject.create();
 
     @Inject
     public MessageRepository(StarterDatabase database, MessageApi api, AppExecutors executors) {
@@ -34,50 +30,32 @@ public class MessageRepository {
         this.executors = executors;
     }
 
-    public Subject<List<Message>> getConversation(Long threadId, Long messageId) {
-        return subject;
-    }
-
-    public Disposable loadConversation(Long threadId, Long messageId) {
+    public Flowable<List<Message>> loadConversation(Long threadId, Long messageId) {
         Flowable<List<Message>> dbFlowable = messageDao.getConversation(threadId);
         Flowable<List<Message>> apiFlowable = api.getConversation(threadId, messageId)
-                .subscribeOn(Schedulers.io())
-                .observeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.from(executors.networkIO()))
+                .observeOn(Schedulers.from(executors.diskIO()))
                 .map(messages -> {
                     saveMessages(messages);
                     return messages;
                 });
 
-//        return dbFlowable
-//                .subscribeOn(Schedulers.computation())
-//                .flatMap((messages) -> {
-//                    if (!messages.isEmpty()) {
-//                        return Flowable.just(messages);
-//                    } else {
-//                        return apiFlowable;
-//                    }
-//                })
-//                .subscribe((messages) -> {
-//                    subject.onNext(messages);
-//                    subject.onComplete();
-//                });
-
         // https://stackoverflow.com/questions/45549827/how-to-use-switchifempty
         return dbFlowable
-                .subscribeOn(Schedulers.computation())
+                .subscribeOn(Schedulers.from(executors.diskIO()))
                 .take(1)
-                .filter(messages -> !messages.isEmpty())
-                .switchIfEmpty(apiFlowable)
-                .subscribe((messages) -> {
-                    subject.onNext(messages);
-                    subject.onComplete();
-                });
+                .filter(messages -> {
+                    Timber.d("%s messages found", messages.size());
+                    return !messages.isEmpty();
+                })
+                .switchIfEmpty(apiFlowable);
     }
 
     private void saveMessages(List<Message> messages) {
         executors.diskIO().execute(() -> {
             Timber.d("Saving %d messages to DB", messages.size());
-            messageDao.saveMessages(messages);
+            List<Long> inserted = messageDao.saveMessages(messages);
+            Timber.d("Saved %d: %s", inserted.size(), inserted);
         });
     }
 

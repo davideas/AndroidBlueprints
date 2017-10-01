@@ -12,6 +12,7 @@ import dagger.Module;
 import dagger.Provides;
 import eu.davidea.starterapp.MyApplication;
 import eu.davidea.starterapp.persistence.db.StarterDatabase;
+import eu.davidea.starterapp.persistence.preferences.PreferencesService;
 import io.reactivex.disposables.CompositeDisposable;
 import timber.log.Timber;
 
@@ -46,6 +47,12 @@ public class ApplicationModule {
     @Singleton
     SharedPreferences providesSharedPreferences(Application application) {
         return PreferenceManager.getDefaultSharedPreferences(application);
+    }
+
+    @Provides
+    @Singleton
+    PreferencesService providesPreferencesService(SharedPreferences sharedPreferences) {
+        return new PreferencesService(sharedPreferences);
     }
 
     @Provides @Named("activity")

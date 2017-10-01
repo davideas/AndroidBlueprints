@@ -28,9 +28,11 @@ public class Message extends ViewModel {
     }
 
     @Ignore
-    public Message(Long id, Long userId, Long threadId) {
+    public Message(Long userId, Long threadId) {
         this.creDate = new Date();
         this.status = EnumMessageStatus.RECEIVED;
+        this.userId = userId;
+        this.threadId = threadId;
     }
 
     public Long getId() {

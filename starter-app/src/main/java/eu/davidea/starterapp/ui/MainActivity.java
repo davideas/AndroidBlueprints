@@ -62,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
         model.getUser().observe(this, resource -> {
             assert resource != null;
             if (resource.data != null) {
-                Timber.d("Result from UserViewModel status=%s, data=%s",
+                Timber.i("Result from UserViewModel status=%s, data=%s",
                         resource.status, resource.data.getName());
                 text.setText(getString(R.string.hello, resource.data.getName()));
             } else {
@@ -78,14 +78,14 @@ public class MainActivity extends AppCompatActivity {
                 .of(this, viewModelFactory)
                 .get(MessageViewModel.class);
 
-        compositeDisposable.add(messageViewModel.getConversation(1L, 1L)
+        compositeDisposable.add(messageViewModel.subscribeToConversationUpdates()
                 .subscribe(messages -> {
                     if (messages != null && !messages.isEmpty()) {
-                        Timber.i("Loaded %s messages", messages.size());
+                        Timber.i("Result from UserViewModel: got %s messages", messages.size());
                     } else {
-                        Timber.i("No message found");
+                        Timber.i("Empty Result from UserViewModel: no message found");
                     }
-                }, throwable -> Timber.e(throwable, "Exception getting messages")));
+                }, throwable -> Timber.e(throwable, "Error getting messages")));
 
         messageViewModel.loadConversation(1L, 1L);
     }

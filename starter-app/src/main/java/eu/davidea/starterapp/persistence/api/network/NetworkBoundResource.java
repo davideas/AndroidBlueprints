@@ -30,9 +30,9 @@ import eu.davidea.starterapp.infrastructure.AppExecutors;
  * Guide</a>.</p>
  *
  * @param <ResultType> The SQLite type entity
- * @param <RequestType> The Network type entity
+ * @param <ResponseType> The Network type entity
  */
-public abstract class NetworkBoundResource<ResultType, RequestType> {
+public abstract class NetworkBoundResource<ResultType, ResponseType> {
 
     private final AppExecutors appExecutors;
     private final MediatorLiveData<Resource<ResultType>> result = new MediatorLiveData<>();
@@ -57,10 +57,11 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     }
 
     private void fetchFromNetwork(final LiveData<ResultType> dbSource) {
-        LiveData<ApiResponse<RequestType>> apiResponse = apiCall();
+        LiveData<ApiResponse<ResponseType>> apiResponse = apiCall();
         // We re-attach dbSource as a new source, it will dispatch its latest value quickly
         //result.addSource(dbSource, newData -> result.setValue(Resource.loading(newData)));
         result.addSource(apiResponse, response -> {
+            assert response != null;
             result.removeSource(apiResponse);
             //result.removeSource(dbSource);
             //noinspection ConstantConditions
@@ -94,7 +95,7 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     }
 
     @WorkerThread
-    protected RequestType processResponse(ApiResponse<RequestType> response) {
+    protected ResponseType processResponse(ApiResponse<ResponseType> response) {
         return response.body;
     }
 
@@ -105,12 +106,12 @@ public abstract class NetworkBoundResource<ResultType, RequestType> {
     @MainThread
     protected abstract boolean shouldFetch(@Nullable ResultType data);
 
-    @WorkerThread
-    protected abstract void saveCallResult(@NonNull RequestType item);
-
     @NonNull
     @MainThread
-    protected abstract LiveData<ApiResponse<RequestType>> apiCall();
+    protected abstract LiveData<ApiResponse<ResponseType>> apiCall();
+
+    @WorkerThread
+    protected abstract void saveCallResult(@NonNull ResponseType item);
 
     protected void onFetchFailed() {
     }

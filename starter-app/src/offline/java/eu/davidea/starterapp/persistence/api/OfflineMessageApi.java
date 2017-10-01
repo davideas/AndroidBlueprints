@@ -44,7 +44,7 @@ public class OfflineMessageApi implements MessageApi {
     private List<Message> initMessages(Long threadId, Long messageId) {
         List<Message> messages = new ArrayList<>(10);
         for (long i = 0; i < ITEMS; i++) {
-            messages.add(new Message(i, messageId, threadId));
+            messages.add(new Message(messageId, threadId));
         }
         return messages;
     }

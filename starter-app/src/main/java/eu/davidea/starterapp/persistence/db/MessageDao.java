@@ -25,9 +25,9 @@ public interface MessageDao {
     void saveMessage(Message message);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    void saveMessages(List<Message> messages);
+    List<Long> saveMessages(List<Message> messages);
 
     @Delete
-    void delete(Message message);
+    int delete(Message message);
 
 }

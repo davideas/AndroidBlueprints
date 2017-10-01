@@ -52,6 +52,7 @@ import java.util.List;
 import java.util.Map;
 
 import eu.davidea.starterapp.R;
+import eu.davidea.starterapp.persistence.preferences.AbstractPreferences;
 
 
 public class FacebookHelper {
@@ -294,14 +295,14 @@ public class FacebookHelper {
     private void initUser(Activity activity) {
         if (isLoggedIn()) {
             // restore user data
-            String id = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_ID, null);
-            String fistName = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_FIRST_NAME, null);
-            String lastName = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LAST_NAME, null);
-            String email = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_EMAIL, null);
-            String birthday = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_BIRTHDAY, null);
-            String gender = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_GENDER, null);
-            String location = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LOCATION, null);
-            String imageUrl = PrefsHelper.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_IMAGE_URL, null);
+            String id = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_ID, null);
+            String fistName = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_FIRST_NAME, null);
+            String lastName = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LAST_NAME, null);
+            String email = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_EMAIL, null);
+            String birthday = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_BIRTHDAY, null);
+            String gender = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_GENDER, null);
+            String location = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_LOCATION, null);
+            String imageUrl = AbstractPreferences.checkString(activity, FACEBOOK_PREFERENCES, FACEBOOK_USER_IMAGE_URL, null);
 
             // init data
             mUserData.put(FACEBOOK_USER_ID, id);
@@ -485,7 +486,7 @@ public class FacebookHelper {
             // TODO: 26/07/2017 log error
         }
 
-        PrefsHelper.putStringsFromMap(activity, FACEBOOK_PREFERENCES, userPrefs);
+        AbstractPreferences.putStringsFromMap(activity, FACEBOOK_PREFERENCES, userPrefs);
         if (imageUrl != null) {
             downloadImageUrl(activity, imageUrl);
         }
