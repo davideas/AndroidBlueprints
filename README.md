@@ -1,7 +1,7 @@
 [![API](https://img.shields.io/badge/API-19%2B-green.svg?style=flat)](https://android-arsenal.com/api?level=19)
 [![Licence](https://img.shields.io/badge/Licence-Apache2-blue.svg)](http://www.apache.org/licenses/LICENSE-2.0)
 
-# Android Starter App
+# Android Blueprints
 My architect experience and passion for Android into this project to simplify the creation of a new App for Android.
 Instead of configuring everything from scratch we can just import or take inspiration from the features of this project.
 
@@ -13,6 +13,8 @@ So, this App is also a playground to experiment new frameworks and new features.
 **Note:** _All features are under deep analysis with continuous development; Features will be added step by step._
 - Ready to use gradle files with [GrabVer versioning](https://github.com/davideas/GrabVer).
 - Build variants and flavors: _Debug_, _Offline_ and _Release_, to test please use _Offline_.
+- [Adaptive Icon](https://developer.android.com/preview/features/adaptive-icons.html) with API compatibility.
+- A real splash screen
 - Architectures: - **On going**
   - Clean Architecture
   - [Android Architecture Components](https://developer.android.com/topic/libraries/architecture/index.html)
@@ -32,7 +34,6 @@ So, this App is also a playground to experiment new frameworks and new features.
 - Architectures:
   - [Flux](http://lgvalle.xyz/2015/08/04/flux-architecture/)?
   - [EventBus](http://greenrobot.org/eventbus/)?
-- [Adaptive Icon](https://developer.android.com/preview/features/adaptive-icons.html).
 - [Adapter](https://github.com/davideas/FlexibleAdapter) for RecyclerView.
 - [Various UI Widgets from community](https://github.com/davideas?tab=stars) / [Devlight](https://github.com/Devlight).
 - [Animations and Activity transitions](https://github.com/davideas?page=1&tab=stars&utf8=%E2%9C%93&q=transition).
