@@ -10,7 +10,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:xxxxxxxxx:android:xxxxxxxxxxx",
         "android_client_info": {
-          "package_name": "eu.davidea.starterapp"
+          "package_name": "eu.davidea.blueapp"
         }
       },
       "oauth_client": [
