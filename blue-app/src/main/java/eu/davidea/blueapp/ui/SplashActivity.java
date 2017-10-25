@@ -23,6 +23,13 @@ public class SplashActivity extends AppCompatActivity {
             getWindow().setExitTransition(new Fade());
         }
 
+        //TODO: Remove after evaluation testing
+        try {
+            Thread.sleep(2000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+
         Intent intent = new Intent(this, MainActivity.class);
         ActivityOptionsCompat options = ActivityOptionsCompat.makeSceneTransitionAnimation(this);
         ActivityCompat.startActivity(this, intent, options.toBundle());

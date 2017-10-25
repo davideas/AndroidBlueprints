@@ -11,7 +11,7 @@ android {
     compileSdkVersion targetSdk
     buildToolsVersion buildTools
     defaultConfig {
-        applicationId 'eu.davidea.starterapp'
+        applicationId 'eu.davidea.blueapp'
         minSdkVersion minSdk
         targetSdkVersion targetSdk
         versionCode versioning.code
