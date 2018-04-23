@@ -1,5 +1,7 @@
 package eu.davidea.blueapp.persistence.repositories;
 
+import android.arch.lifecycle.LiveData;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -30,9 +32,13 @@ public class MessageRepository {
         this.executors = executors;
     }
 
-    public Flowable<List<Message>> loadConversation(Long threadId, Long messageId) {
+    public LiveData<List<Message>> loadLiveConversation(Long threadId) {
+        return messageDao.getLiveConversation(threadId);
+    }
+
+    public Flowable<List<Message>> loadConversation(Long threadId) {
         Flowable<List<Message>> dbFlowable = messageDao.getConversation(threadId);
-        Flowable<List<Message>> apiFlowable = api.getConversation(threadId, messageId)
+        Flowable<List<Message>> apiFlowable = api.getConversation(threadId)
                 .subscribeOn(Schedulers.from(executors.networkIO()))
                 .observeOn(Schedulers.from(executors.diskIO()))
                 .map(messages -> {

@@ -1,5 +1,6 @@
 package eu.davidea.blueapp.persistence.db;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -20,6 +21,9 @@ public interface MessageDao {
 
     @Query("select * from message where threadId = :threadId order by creDate asc")
     Flowable<List<Message>> getConversation(Long threadId);
+
+    @Query("select * from message where threadId = :threadId order by creDate asc")
+    LiveData<List<Message>> getLiveConversation(Long threadId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     void saveMessage(Message message);

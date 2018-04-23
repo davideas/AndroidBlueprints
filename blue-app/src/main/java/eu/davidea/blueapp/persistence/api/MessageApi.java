@@ -9,7 +9,6 @@ import retrofit2.http.Body;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
-import retrofit2.http.Query;
 
 /**
  * @author Davide
@@ -20,8 +19,7 @@ public interface MessageApi {
     String THREAD_URL = "/v1/threads";
 
     @GET(THREAD_URL + "/{threadId}")
-    Flowable<List<Message>> getConversation(@Path("threadId") Long threadId,
-                                            @Query("messageId") Long messageId);
+    Flowable<List<Message>> getConversation(@Path("threadId") Long threadId);
 
     @GET(THREAD_URL + "/{threadId}/{messageId}")
     Observable<Message> getMessage(@Path("threadId") Long threadId,

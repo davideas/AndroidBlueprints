@@ -145,6 +145,7 @@ dependencies {
 
     // Flexible Adapter - https://github.com/davideas/FlexibleAdapter
     implementation libraries.flexibleAdapter
+    implementation libraries.flexibleLiveData
 
     // UI Widgets
     implementation widgets.flipView

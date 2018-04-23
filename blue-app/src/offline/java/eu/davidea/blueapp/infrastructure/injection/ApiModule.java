@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 
 import java.util.concurrent.TimeUnit;
 
-import javax.inject.Named;
 import javax.inject.Singleton;
 
 import dagger.Module;
@@ -17,7 +16,6 @@ import eu.davidea.blueapp.persistence.api.OfflineUserApi;
 import eu.davidea.blueapp.persistence.api.UserApi;
 import eu.davidea.blueapp.persistence.api.network.AuthInterceptor;
 import eu.davidea.blueapp.persistence.api.network.LiveDataCallAdapterFactory;
-import io.reactivex.disposables.CompositeDisposable;
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Retrofit;

@@ -6,14 +6,14 @@ ext {
     developerEmail = "dave.dna@gmail.com"
 
     // SDK and Build tools version
-    minSdk = 19
-    targetSdk = 26
-    buildTools = "26.0.2"
+    minSdk = 21
+    targetSdk = 27
+    buildTools = "27.0.3"
 
     // Android Architecture Components
-    archLifecycleVer = "1.0.3"
-    archExtensionsVer = "1.0.0-rc1"
-    archPersistenceVer = archExtensionsVer
+    archLifecycleVer = "1.1.1"
+    archExtensionsVer = "1.1.1"
+    roomPersistenceVer = "1.1.0-beta2"
     archLib = [
             lifecycle      : "android.arch.lifecycle:runtime:${archLifecycleVer}",
             extensions     : "android.arch.lifecycle:extensions:${archExtensionsVer}",
@@ -21,20 +21,21 @@ ext {
             commonJava8    : "android.arch.lifecycle:common-java8:${archExtensionsVer}",
             reactiveStreams: "android.arch.lifecycle:reactivestreams:${archExtensionsVer}",
             coreTesting    : "android.arch.core:core-testing:${archExtensionsVer}",
-            room           : "android.arch.persistence.room:runtime:${archPersistenceVer}",
-            roomCompiler   : "android.arch.persistence.room:compiler:${archPersistenceVer}",
-            roomRxJava2    : "android.arch.persistence.room:rxjava2:${archPersistenceVer}"
+            room           : "android.arch.persistence.room:runtime:${roomPersistenceVer}",
+            roomCompiler   : "android.arch.persistence.room:compiler:${roomPersistenceVer}",
+            roomRxJava2    : "android.arch.persistence.room:rxjava2:${roomPersistenceVer}"
     ]
 
     // Support Libraries
-    supportVer = "26.1.0"
-    constraintVer = "1.1.0-beta3"
+    supportVer = "27.1.0"
+    constraintVer = "1.1.0"
     supportLib = [
             design          : "com.android.support:design:${supportVer}",
             recyclerView    : "com.android.support:recyclerview-v7:${supportVer}",
             cardView        : "com.android.support:cardview-v7:${supportVer}",
             appcompat       : "com.android.support:appcompat-v7:${supportVer}",
             customTabs      : "com.android.support:customtabs:${supportVer}",
+            support_v4      : "com.android.support:support-v4:${supportVer}",
             support_v13     : "com.android.support:support-v13:${supportVer}",
             annotations     : "com.android.support:support-annotations:${supportVer}",
             vectorDrawable  : "com.android.support:support-vector-drawable:${supportVer}",
@@ -44,28 +45,34 @@ ext {
     ]
 
     // Libraries
-    firebaseVer = "11.4.0"
-    googleMapsVer = "11.4.0"
-    rxAndroidVer = "2.0.1"
-    daggerVer = "2.11"
-    gsonVer = "2.8.1"
+    firebaseVer = "11.8.0"
+    googleMapsVer = "11.8.0"
+    rxAndroidVer = "2.0.2"
+    daggerVer = "2.15"
+    gsonVer = "2.8.2"
     butterKnifeVer = "8.8.1"
-    timberVer = "4.5.1"
+    timberVer = "4.7.0"
     retrofitVer = "2.3.0"
     okHttpVer = "3.9.0"
-    rxJavaVer = "2.1.3"
-    glideVer = "4.1.1"
-    frescoVer = "1.5.0"
+    rxJavaVer = "2.1.10"
+    glideVer = "4.6.1"
+    frescoVer = "1.8.1"
     facebookSdkVer = "4.25.0"
-    flexibleAdapterVer = "5.0.0-rc3"
-    flexibleLiveDataVer = "1.0.0-b1"
+    flexibleAdapterVer = "5.0.3"
+    flexibleAdapterUIVer = "1.0.0-b4"
+    flexibleLiveDataVer = "1.0.0-b2"
+    javaxInjectVer = "1"
+    junitPlatformVer = "1.1.0"
+    junitJupiterVer = "5.1.0"
     libraries = [
             firebaseConfig       : "com.google.firebase:firebase-config:${firebaseVer}",
             firebaseMessaging    : "com.google.firebase:firebase-messaging:${firebaseVer}",
             googleMaps           : "com.google.android.gms:play-services-maps:${googleMapsVer}",
             dagger               : "com.google.dagger:dagger:${daggerVer}",
-            daggerAndroid        : "com.google.dagger:dagger-android-support:${daggerVer}",
+            daggerAndroid        : "com.google.dagger:dagger-android:${daggerVer}",
+            daggerAndroidSupport : "com.google.dagger:dagger-android-support:${daggerVer}",
             daggerCompiler       : "com.google.dagger:dagger-compiler:${daggerVer}",
+            daggerCompilerSupport: "com.google.dagger:dagger-android-processor:${daggerVer}",
             gson                 : "com.google.code.gson:gson:${gsonVer}",
             butterKnife          : "com.jakewharton:butterknife:${butterKnifeVer}",
             butterKnifeCompiler  : "com.jakewharton:butterknife-compiler:${butterKnifeVer}",
@@ -82,18 +89,21 @@ ext {
             fresco               : "com.facebook.fresco:fresco:${frescoVer}",
             facebookSdk          : "com.facebook.android:facebook-android-sdk:${facebookSdkVer}",
             flexibleAdapter      : "eu.davidea:flexible-adapter:${flexibleAdapterVer}",
+            flexibleAdapterUI    : "eu.davidea:flexible-adapter-ui:${flexibleAdapterUIVer}",
             flexibleLiveData     : "eu.davidea:flexible-adapter-livedata:${flexibleLiveDataVer}"
     ]
 
     // Widgets
     flipViewVer = "1.1.3@aar"
-    iconicsVer = "2.9.3@aar"
-    iconicsCmdVer = "1.9.32.2@aar"
+    iconicsVer = "3.0.0@aar"
+    iconicsCmdVer = "2.0.46.1@aar"
+    materialDialogsVer = "0.9.6.0"
     widgets = [
             flipView        : "eu.davidea:flipview:${flipViewVer}",
             iconicsCore     : "com.mikepenz:iconics-core:${iconicsVer}",
             iconicsViews    : "com.mikepenz:iconics-views:${iconicsVer}",
             iconicsCommunity: "com.mikepenz:community-material-typeface:${iconicsCmdVer}",
+            materialDialogs : "com.afollestad.material-dialogs:core:${materialDialogsVer}"
     ]
 
 }
@@ -103,11 +113,14 @@ buildscript {
         jcenter()
         google()
         maven { url "http://dl.bintray.com/davideas/maven" }
+        maven { url "https://oss.sonatype.org/content/repositories/snapshots/" }
     }
+
     dependencies {
-        classpath 'com.android.tools.build:gradle:3.0.0-rc2'
-        classpath 'com.google.gms:google-services:3.0.0'
-        classpath 'eu.davidea:grabver:0.6.0'
+        classpath 'com.android.tools.build:gradle:3.1.1'
+        classpath 'com.google.gms:google-services:3.1.1'
+        classpath "de.mannodermaus.gradle.plugins:android-junit5:1.0.31"
+        classpath 'eu.davidea:grabver:0.7.0'
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
     }

@@ -10,8 +10,10 @@ import android.support.v4.app.ActivityOptionsCompat;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.app.AppCompatDelegate;
+import android.transition.Fade;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.Window;
 import android.widget.TextView;
 
 import javax.inject.Inject;
@@ -19,6 +21,7 @@ import javax.inject.Named;
 
 import eu.davidea.blueapp.MyApplication;
 import eu.davidea.blueapp.R;
+import eu.davidea.blueapp.utils.Utils;
 import eu.davidea.blueapp.viewmodels.message.MessageViewModel;
 import eu.davidea.blueapp.viewmodels.user.AnonymousUser;
 import eu.davidea.blueapp.viewmodels.user.UserViewModel;
@@ -31,7 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
     @Inject
     ViewModelProvider.Factory viewModelFactory;
-    @Inject @Named("activity")
+    @Inject
+    @Named("activity")
     CompositeDisposable compositeDisposable;
 
     MessageViewModel messageViewModel;
@@ -39,7 +43,14 @@ public class MainActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         AppCompatDelegate.setDefaultNightMode(AppCompatDelegate.MODE_NIGHT_AUTO);
+        if (Utils.hasLollipop()) requestWindowFeature(Window.FEATURE_CONTENT_TRANSITIONS);
         super.onCreate(savedInstanceState);
+
+        if (Utils.hasLollipop()) {
+            getWindow().setEnterTransition(new Fade());
+        }
+
+        // Applying main view
         setContentView(R.layout.activity_main);
 
         // Logger
