@@ -30,7 +30,7 @@ public class MessageViewModel extends FlexibleViewModel<List<Message>, HolderMes
     private MessageRepository repository;
     private MessageItemFactory itemFactory;
 
-    @Inject
+    //@Inject
     public MessageViewModel(MessageRepository repository) {
         super(); // super() must be called!
         Timber.d("Init MessageViewModel");
@@ -145,14 +145,14 @@ public class MessageViewModel extends FlexibleViewModel<List<Message>, HolderMes
         return subject;
     }
 
-    public void loadConversation(Long threadId) {
+    public void loadConversation(Long threadId, Long userId) {
         Identifier identifier = new Identifier(threadId);
         if (!identifier.equals(messageIdentifier)) {
             messageIdentifier = identifier;
             // 1) Add observable to CompositeDisposable so that it can be dispose when ViewModel is
             // ready to be destroyed 2) Call retrofit client on background thread and update database
             // with response from service using Room.
-            Disposable disposable = repository.loadConversation(threadId)
+            Disposable disposable = repository.loadConversation(threadId, userId)
                     .subscribe((messages) -> {
                         this.messages.postValue(messages);
                         subject.onNext(messages);

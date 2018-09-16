@@ -36,9 +36,9 @@ public class MessageRepository {
         return messageDao.getLiveConversation(threadId);
     }
 
-    public Flowable<List<Message>> loadConversation(Long threadId) {
+    public Flowable<List<Message>> loadConversation(Long threadId, Long userId) {
         Flowable<List<Message>> dbFlowable = messageDao.getConversation(threadId);
-        Flowable<List<Message>> apiFlowable = api.getConversation(threadId)
+        Flowable<List<Message>> apiFlowable = api.getConversation(threadId, userId)
                 .subscribeOn(Schedulers.from(executors.networkIO()))
                 .observeOn(Schedulers.from(executors.diskIO()))
                 .map(messages -> {

@@ -26,10 +26,10 @@ public class OfflineMessageApi implements MessageApi {
     }
 
     @Override
-    public Flowable<List<Message>> getConversation(Long threadId, Long messageId) {
-        return delegate.returningResponse(initMessages(threadId, messageId))
-                .getConversation(threadId, messageId)
-                .doOnSubscribe((subscription -> Timber.d("Generating Conversation %s %S", threadId, messageId)));
+    public Flowable<List<Message>> getConversation(Long threadId, Long userId) {
+        return delegate.returningResponse(initMessages(threadId, userId))
+                .getConversation(threadId, userId)
+                .doOnSubscribe((subscription -> Timber.d("Generating Conversation %s %s", threadId, userId)));
     }
 
     @Override
@@ -41,10 +41,10 @@ public class OfflineMessageApi implements MessageApi {
     public void sendMessage(Message message) {
     }
 
-    private List<Message> initMessages(Long threadId, Long messageId) {
+    private List<Message> initMessages(Long threadId, Long userId) {
         List<Message> messages = new ArrayList<>(10);
         for (long i = 0; i < ITEMS; i++) {
-            messages.add(new Message(messageId, threadId));
+            messages.add(new Message(userId, threadId));
         }
         return messages;
     }

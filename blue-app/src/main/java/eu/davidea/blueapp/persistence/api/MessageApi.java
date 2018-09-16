@@ -19,7 +19,8 @@ public interface MessageApi {
     String THREAD_URL = "/v1/threads";
 
     @GET(THREAD_URL + "/{threadId}")
-    Flowable<List<Message>> getConversation(@Path("threadId") Long threadId);
+    Flowable<List<Message>> getConversation(@Path("threadId") Long threadId,
+                                            @Path("userId") Long userId);
 
     @GET(THREAD_URL + "/{threadId}/{messageId}")
     Observable<Message> getMessage(@Path("threadId") Long threadId,

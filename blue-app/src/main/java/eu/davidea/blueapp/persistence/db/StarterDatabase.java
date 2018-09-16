@@ -12,7 +12,7 @@ import eu.davidea.blueapp.viewmodels.user.UserToken;
  * Database Migration
  * http://www.zoftino.com/database-migration-with-room
  */
-@Database(entities = {User.class, UserToken.class, Message.class}, version = 1)
+@Database(entities = {User.class, UserToken.class, Message.class}, version = 1, exportSchema = false)
 @TypeConverters({DateConverters.class, EnumConverters.class})
 public abstract class StarterDatabase extends RoomDatabase {
 
