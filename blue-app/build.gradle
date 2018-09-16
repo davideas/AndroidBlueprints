@@ -95,11 +95,11 @@ dependencies {
     implementation supportLib.preference_v7
     implementation supportLib.preference_v14
     implementation supportLib.vectorDrawable
-    compile(supportLib.design) {
+    implementation(supportLib.design) {
         exclude module: 'support-v4'
         exclude module: 'support-annotations'
     }
-    compile(supportLib.recyclerView) {
+    implementation(supportLib.recyclerView) {
         exclude module: 'support-v4'
         exclude module: 'support-annotations'
     }
@@ -145,6 +145,7 @@ dependencies {
 
     // Flexible Adapter - https://github.com/davideas/FlexibleAdapter
     implementation libraries.flexibleAdapter
+    implementation libraries.flexibleAdapterUI
     implementation libraries.flexibleLiveData
 
     // UI Widgets
@@ -157,14 +158,14 @@ dependencies {
 
     // Test
     androidTestImplementation supportLib.annotations
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test:rules:1.0.1'
-    androidTestCompile('com.android.support.test.espresso:espresso-core:3.0.1', {
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test:rules:1.0.2'
+    androidTestImplementation('com.android.support.test.espresso:espresso-core:3.0.1', {
         exclude group: 'com.android.support', module: 'support-annotations'
         exclude group: 'com.google.code.findbugs', module: 'jsr305'
     })
     testImplementation 'org.robolectric:robolectric:3.4.2'
     testImplementation 'junit:junit:4.12'
-    testImplementation 'org.mockito:mockito-core:2.10.0'
+    testImplementation 'org.mockito:mockito-core:2.21.0'
 
 }
